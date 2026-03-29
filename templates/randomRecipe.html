@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaj naj jem</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
+</head>
+<body>
+<header>
+    <div class="container">
+
+        <!-- LOGO + NASLOV -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+            </a>
+            <div class="logo">Gurmanski svet</div>
+        </div>
+
+        <!-- NAVIGACIJA -->
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Domov</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Recepti ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/randomRecipe">Naključni recept</a>
+                        <a href="/hladilnik">Po sestavinah</a>
+                        <a href="/predlagani_recepti">Predlagani recepti</a>
+                        <a href="/idSearch">Iskanje po ID</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Orodja ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/kalkulator">Kalkulator</a>
+                        <a href="/pretvori">Pretvornik enot</a>
+                        <a href="/info">Info o sestavinah</a>
+                    </div>
+                </li>
+
+                <li><a href="/zdravi">Zdravi obrok</a></li>
+                <li><a href="/tecaji">Tečaji</a></li>
+                <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+{% if username %}
+<li class="dropdown">
+    <a href="#">Hej {{ username }} ▾</a>
+    <div class="dropdown-content">
+        <a href="/logout">Odjava</a>
+    </div>
+</li>
+{% else %}
+<li><a href="/login">Prijava</a></li>
+{% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</header>
+    
+    <a href="/">Domov</a>
+
+    <h1>Dobite nakljucni recept</h1>
+
+    <input type="text" id="sestavine" placeholder="Sestavine">
+    <select id="vrsta">
+        <option value="">Izberi kuhinjo</option>
+        <option value="African">African</option>
+        <option value="Asian">Asian</option>
+        <option value="American">American</option>
+        <option value="British">British</option>
+        <option value="Cajun">Cajun</option>
+        <option value="Caribbean">Caribbean</option>
+        <option value="Chinese">Chinese</option>
+        <option value="Eastern European">Eastern European</option>
+        <option value="European">European</option>
+        <option value="French">French</option>
+        <option value="German">German</option>
+        <option value="Greek">Greek</option>
+        <option value="Indian">Indian</option>
+        <option value="Irish">Irish</option>
+        <option value="Italian">Italian</option>
+        <option value="Japanese">Japanese</option>
+        <option value="Jewish">Jewish</option>
+        <option value="Korean">Korean</option>
+        <option value="Latin American">Latin American</option>
+        <option value="Mediterranean">Mediterranean</option>
+        <option value="Mexican">Mexican</option>
+        <option value="Middle Eastern">Middle Eastern</option>
+        <option value="Nordic">Nordic</option>
+        <option value="Southern">Southern</option>
+        <option value="Spanish">Spanish</option>
+        <option value="Thai">Thai</option>
+        <option value="Vietnamese">Vietnamese</option>
+    </select>
+    <button onclick="getRandomRecipe()">Dobi recept</button>
+
+    <div id="output0" style="color: red;"></div>
+    <div id="output1"></div>
+    <div id="output2"></div>
+    <div id="output3"></div>
+    <div id="output4"></div>
+
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function getRandomRecipe() {
+            var output = document.getElementById("output");
+
+
+            $.ajax({
+                url: "/getRandomRecipe",
+                data: {
+                    sestavine: sestavine.value,
+                    vrsta: vrsta.value
+                },
+                success: function (result) {
+                
+                    if (result.message) {
+                        output0.innerHTML = result.message;
+                    } else {
+                        output0.innerHTML = ""; // počisti error
+                    }
+                
+                    output1.innerHTML = result.ime || "";
+                    output2.innerHTML = result.slika || "";
+                    output3.innerHTML = result.ingredients || "";
+                    output4.innerHTML = result.navodila || "";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

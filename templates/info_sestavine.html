@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informacije o sestavinah</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
+</head>
+<body>
+<header>
+    <div class="container">
+
+        <!-- LOGO + NASLOV -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+            </a>
+            <div class="logo">Gurmanski svet</div>
+        </div>
+
+        <!-- NAVIGACIJA -->
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Domov</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Recepti ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/randomRecipe">Naključni recept</a>
+                        <a href="/hladilnik">Po sestavinah</a>
+                        <a href="/predlagani_recepti">Predlagani recepti</a>
+                        <a href="/idSearch">Iskanje po ID</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Orodja ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/kalkulator">Kalkulator</a>
+                        <a href="/pretvori">Pretvornik enot</a>
+                        <a href="/info">Info o sestavinah</a>
+                    </div>
+                </li>
+
+                <li><a href="/zdravi">Zdravi obrok</a></li>
+                <li><a href="/tecaji">Tečaji</a></li>
+                <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+{% if username %}
+<li class="dropdown">
+    <a href="#">Hej {{ username }} ▾</a>
+    <div class="dropdown-content">
+        <a href="/logout">Odjava</a>
+    </div>
+</li>
+{% else %}
+<li><a href="/login">Prijava</a></li>
+{% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+    <a href="/">Domov</a>
+    <h1>Dobite informacije o sestavinah</h1>
+
+    <input type="text" id="sestavina" placeholder="Vnesite sestavino">
+
+    <div class="gumb">
+        <button onclick="getInfo()">Dobi informacije</button>
+    </div>
+    
+
+
+    <div id="output"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function getInfo() {
+            var output = document.getElementById("output");
+
+            $.ajax({
+                url: "getInfo",
+                data: {
+                    sestavina: sestavina.value,
+
+                },
+                //output narjen s chatom
+                success: function (result) {
+                    let html = `<h2>Hranilne vrednosti za: ${result.name}</h2>`;
+                    html += `<table><thead><tr><th>Hranilo</th><th>Količina</th></tr></thead><tbody>`;
+                    
+                    for (const [key, value] of Object.entries(result)) {
+                        if (key === 'name') continue;
+                        html += `<tr><td>${key}</td><td>${value.amount} ${value.unit}</td></tr>`;
+                    }
+                
+                    html += `</tbody></table>`;
+                    output.innerHTML = html;
+                }
+
+            });
+        }
+    </script>
+
+</body>
+</html>

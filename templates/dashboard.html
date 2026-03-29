@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nadzorna plošča</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
+</head>
+<body>
+<header>
+    <div class="container">
+
+        <!-- LOGO + NASLOV -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+            </a>
+            <div class="logo">Gurmanski svet</div>
+        </div>
+
+        <!-- NAVIGACIJA -->
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Domov</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Recepti ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/randomRecipe">Naključni recept</a>
+                        <a href="/hladilnik">Po sestavinah</a>
+                        <a href="/predlagani_recepti">Predlagani recepti</a>
+                        <a href="/idSearch">Iskanje po ID</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Orodja ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/kalkulator">Kalkulator</a>
+                        <a href="/pretvori">Pretvornik enot</a>
+                        <a href="/info">Info o sestavinah</a>
+                    </div>
+                </li>
+
+                <li><a href="/zdravi">Zdravi obrok</a></li>
+                <li><a href="/tecaji">Tečaji</a></li>
+                <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+{% if username %}
+<li class="dropdown">
+    <a href="#">Hej {{ username }} ▾</a>
+    <div class="dropdown-content">
+        <a href="/logout">Odjava</a>
+    </div>
+</li>
+{% else %}
+<li><a href="/login">Prijava</a></li>
+{% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</header>
+<section class="features">
+
+    <h1>Nadzorna plošča</h1>
+    <p>Upravljanje sistema in vsebine</p>
+
+    <div class="cards">
+
+        <a href="/uporabniki" class="card">
+            <h3>Uporabniki</h3>
+            <p>Preglej in upravljaj uporabnike</p>
+        </a>
+
+        <a href="/recepti" class="card">
+            <h3>Predlagani recepti</h3>
+            <p>Preglej in upravljaj uporabnike</p>
+        </a>
+
+        <a href="/predlagani_recepti" class="card">
+            <h3>Recepti uporabnikov</h3>
+            <p>Odobri ali izbriši recepte</p>
+        </a>
+
+    </div>
+
+        <div style="margin-top: 30px;">
+        <a href="/" class="btn">Nazaj</a>
+    </div>
+</section>
+    
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuharski tecaji</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
+
+
+</head>
+<body>
+<header>
+    <div class="container">
+
+        <!-- LOGO + NASLOV -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+            </a>
+            <div class="logo">Gurmanski svet</div>
+        </div>
+
+        <!-- NAVIGACIJA -->
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Domov</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Recepti ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/randomRecipe">Naključni recept</a>
+                        <a href="/hladilnik">Po sestavinah</a>
+                        <a href="/predlagani_recepti">Predlagani recepti</a>
+                        <a href="/idSearch">Iskanje po ID</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Orodja ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/kalkulator">Kalkulator</a>
+                        <a href="/pretvori">Pretvornik enot</a>
+                        <a href="/info">Info o sestavinah</a>
+                    </div>
+                </li>
+
+                <li><a href="/zdravi">Zdravi obrok</a></li>
+                <li><a href="/tecaji">Tečaji</a></li>
+                <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+{% if username %}
+<li class="dropdown">
+    <a href="#">Hej {{ username }} ▾</a>
+    <div class="dropdown-content">
+        <a href="/logout">Odjava</a>
+    </div>
+</li>
+{% else %}
+<li><a href="/login">Prijava</a></li>
+{% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+    <a href="/">Domov</a>
+    <h1>Prijavite se na kuharske tečaje</h1>
+    
+<table>
+        <thead>
+            <tr>
+                <th>Ime tečaja</th>
+                <th>Organizator</th>
+                <th>Povezava</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Kuharski tečaji</td>
+                <td>Gastrofuzija</td>
+                <td><a href="https://www.gastrofuzija.si/kuharski-tecaji" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Kulinarične delavnice</td>
+                <td>Jezeršek gostinstvo</td>
+                <td><a href="https://www.jezersek.si/akademija" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Kuharski tečaj</td>
+                <td>Kuharske iskrice (BIC LJ)</td>
+                <td><a href="https://www.bic-lj.si/tecaji/kuharske-iskrice" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Kuharski tečaji</td>
+                <td>Pavus</td>
+                <td><a href="https://www.pavus.si/dogodki" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Tečaji</td>
+                <td>Šola okusov (VIVI)</td>
+                <td><a href="https://www.solaokusov.si/tecaji" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Kuharski tečaj: Osnove kuhanja</td>
+                <td>Kuhaj kot chef</td>
+                <td><a href="https://kuhajkotchef.si/Tečaji" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Online kuharski tečaji z Binetom Volčičem</td>
+                <td>Bine Volčič</td>
+                <td><a href="https://binevolcic.si" target="_blank">Povezava</a></td>
+            </tr>
+            <tr>
+                <td>Kuharska delavnica s chefom Agom Špacapanom</td>
+                <td>Špacapanova hiša</td>
+                <td><a href="https://www.spacapan.si/catering" target="_blank">Povezava</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+</html>

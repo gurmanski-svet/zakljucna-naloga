@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Seznam receptov</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
+</head>
+<body>
+<header>
+    <div class="container">
+
+        <!-- LOGO + NASLOV -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+            </a>
+            <div class="logo">Gurmanski svet</div>
+        </div>
+
+        <!-- NAVIGACIJA -->
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Domov</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Recepti ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/randomRecipe">Naključni recept</a>
+                        <a href="/hladilnik">Po sestavinah</a>
+                        <a href="/predlagani_recepti">Predlagani recepti</a>
+                        <a href="/idSearch">Iskanje po ID</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Orodja ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/kalkulator">Kalkulator</a>
+                        <a href="/pretvori">Pretvornik enot</a>
+                        <a href="/info">Info o sestavinah</a>
+                    </div>
+                </li>
+
+                <li><a href="/zdravi">Zdravi obrok</a></li>
+                <li><a href="/tecaji">Tečaji</a></li>
+                <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+{% if username %}
+<li class="dropdown">
+    <a href="#">Hej {{ username }} ▾</a>
+    <div class="dropdown-content">
+        <a href="/logout">Odjava</a>
+    </div>
+</li>
+{% else %}
+<li><a href="/login">Prijava</a></li>
+{% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<section class="features">
+
+    <h1>Predlagani recepti</h1>
+    <p>Preglej, potrdi ali zavrni recepte</p>
+
+    <a href="/dashboard" class="btn">← Nazaj na dashboard</a>
+
+    <div class="table-container">
+
+        <table class="user-table">
+            <tr>
+                <th>Naslov</th>
+                <th>Sestavine</th>
+                <th>Navodila</th>
+                <th>Status</th>
+                <th>Akcije</th>
+                <th>Izbriši</th>
+            </tr>
+
+            {% for recept in recepti %}
+            <tr>
+                <td>{{ recept[1] }}</td>
+                <td>{{ recept[2] }}</td>
+                <td>{{ recept[3] }}</td>
+
+                <!-- STATUS -->
+                <td>
+                    {% if recept[4] == "pending" %}
+                        <span class="status-box pending"></span>
+                    {% elif recept[4] == "approved" %}
+                        <span class="status-box approved"></span>
+                    {% else %}
+                        <span class="status-box rejected"></span>
+                    {% endif %}
+                </td>
+
+                <!-- AKCIJE -->
+                <td>
+                    <div class="akcije">
+                        <button class="potrdi-btn" data-id="{{ recept[0] }}">✔</button>
+                        <button class="zavrni-btn" data-id="{{ recept[0] }}">✖</button>
+                    </div>
+                </td>
+
+                <!-- DELETE -->
+                <td>
+                    <form action="/izbrisi_recept/{{ recept[0] }}" method="POST">
+                        <button type="submit" class="delete-btn">Izbriši</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+
+</section>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+$(".potrdi-btn").click(function() {
+    let id = $(this).data("id");
+    potrdi(id);
+});
+
+$(".zavrni-btn").click(function() {
+    let id = $(this).data("id");
+    zavrni(id);
+});
+
+// 👉 DODAJ TO:
+function potrdi(id) {
+
+    $.ajax({
+        url: "/potrdi/" + id,
+        method: "POST",
+        success: function() {
+            location.reload(); // osveži stran
+        }
+    });
+}
+
+function zavrni(id) {
+
+    $.ajax({
+        url: "/zavrni/" + id,
+        method: "POST",
+        success: function() {
+            location.reload();
+        }
+    });
+}
+</script>
+
+</body>
+</html>

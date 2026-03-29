@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin domov</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
+
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+
+        <!-- LOGO + NASLOV -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+            </a>
+            <div class="logo">Gurmanski svet</div>
+        </div>
+
+        <!-- NAVIGACIJA -->
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Domov</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Recepti ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/randomRecipe">Naključni recept</a>
+                        <a href="/hladilnik">Po sestavinah</a>
+                        <a href="/predlagani_recepti">Predlagani recepti</a>
+                        <a href="/idSearch">Iskanje po ID</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Orodja ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/kalkulator">Kalkulator</a>
+                        <a href="/pretvori">Pretvornik enot</a>
+                        <a href="/info">Info o sestavinah</a>
+                    </div>
+                </li>
+
+                <li><a href="/zdravi">Zdravi obrok</a></li>
+                <li><a href="/tecaji">Tečaji</a></li>
+                <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+{% if username %}
+<li class="dropdown">
+    <a href="#">Hej {{ username }} ▾</a>
+    <div class="dropdown-content">
+        <a href="/logout">Odjava</a>
+    </div>
+</li>
+{% else %}
+<li><a href="/login">Prijava</a></li>
+{% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<section class="features">
+
+    <h1>Admin panel</h1>
+    <p>Dobrodošel, {{ username }}!</p>
+
+    <div class="cards">
+
+        <a href="/dashboard" class="card">
+            <h3>Nadzorna plošča</h3>
+            <p>Pregled sistema</p>
+        </a>
+
+        <a href="/uporabniki" class="card">
+            <h3>Uporabniki</h3>
+            <p>Upravljanje uporabnikov</p>
+        </a>
+
+        <a href="/predlagani_recepti" class="card">
+            <h3>Predlagani recepti</h3>
+            <p>Preglej oddane recepte</p>
+        </a>
+
+        <a href="/dodajRecept" class="card">
+            <h3>Dodaj recept</h3>
+            <p>Ročno dodaj recept</p>
+        </a>
+
+        <a href="/randomRecipe" class="card">
+            <h3>Test API</h3>
+            <p>Naključni recept</p>
+        </a>
+
+        <a href="/idSearch" class="card">
+            <h3>Iskanje po ID</h3>
+            <p>Debug / test</p>
+        </a>
+
+    </div>
+
+</section>
+</body>
+</html>

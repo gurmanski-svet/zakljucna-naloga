@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodajanje recepta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
+
+</head>
+
+<body>
+<header>
+    <div class="container">
+
+        <!-- LOGO + NASLOV -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+            </a>
+            <div class="logo">Gurmanski svet</div>
+        </div>
+
+        <!-- NAVIGACIJA -->
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Domov</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Recepti ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/randomRecipe">Naključni recept</a>
+                        <a href="/hladilnik">Po sestavinah</a>
+                        <a href="/predlagani_recepti">Predlagani recepti</a>
+                        <a href="/idSearch">Iskanje po ID</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Orodja ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/kalkulator">Kalkulator</a>
+                        <a href="/pretvori">Pretvornik enot</a>
+                        <a href="/info">Info o sestavinah</a>
+                    </div>
+                </li>
+
+                <li><a href="/zdravi">Zdravi obrok</a></li>
+                <li><a href="/tecaji">Tečaji</a></li>
+                <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+{% if username %}
+<li class="dropdown">
+    <a href="#">Hej {{ username }} ▾</a>
+    <div class="dropdown-content">
+        <a href="/logout">Odjava</a>
+    </div>
+</li>
+{% else %}
+<li><a href="/login">Prijava</a></li>
+{% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+    <a href="/">Domov</a>
+    <h1>Predlagajte svoj recept</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+<form action="/getDodajRecept" method="POST" enctype="multipart/form-data">
+
+    <input type="text" id="naslov" name="naslov" placeholder="Naslov recepta" required><br><br>
+
+    <textarea id="sestavine" name="sestavine" rows="5" placeholder="Sestavine (vsaka v novo vrstico)" required></textarea><br><br>
+
+    <textarea id="navodila" name="navodila" rows="6" placeholder="Navodila za pripravo" required></textarea><br><br>
+
+    <select id="tezavnost" name="tezavnost" required>
+        <option value="">Izberite težavnost</option>
+        <option value="enostavno">Enostavno</option>
+        <option value="srednje">Srednje</option>
+        <option value="zahtevno">Zahtevno</option>
+    </select><br><br>
+
+    <input type="number" id="casPriprave" name="casPriprave" placeholder="Čas priprave (v minutah)" min="1" required><br><br>
+
+    <input type="number" id="osebe" name="osebe" placeholder="Število oseb" min="1" required><br><br>
+
+    <input type="file" name="slika" accept="image/*"><br><br>
+
+    <input type="submit" value="Dodaj recept"><br><br>
+
+</form>
+    
+    <div id="output"></div>
+    
+</body>
+</html>
+

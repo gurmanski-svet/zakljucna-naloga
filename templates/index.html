@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domov</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+
+        <!-- LOGO + NASLOV -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+            </a>
+            <div class="logo">Gurmanski svet</div>
+        </div>
+
+        <!-- NAVIGACIJA -->
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Domov</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Recepti ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/randomRecipe">Naključni recept</a>
+                        <a href="/hladilnik">Po sestavinah</a>
+                        <a href="/predlagani_recepti">Predlagani recepti</a>
+                        <a href="/idSearch">Iskanje po ID</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Orodja ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/kalkulator">Kalkulator</a>
+                        <a href="/pretvori">Pretvornik enot</a>
+                        <a href="/info">Info o sestavinah</a>
+                    </div>
+                </li>
+
+                <li><a href="/zdravi">Zdravi obrok</a></li>
+                <li><a href="/tecaji">Tečaji</a></li>
+                <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+{% if username %}
+<li class="dropdown">
+    <a href="#">Hej {{ username }} ▾</a>
+    <div class="dropdown-content">
+        <a href="/logout">Odjava</a>
+    </div>
+</li>
+{% else %}
+<li><a href="/login">Prijava</a></li>
+{% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<!-- VSEBINA -->
+    <div class="uspesna-oddaja">  
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div>
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    </div>
+
+<main>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Dobrodošli v Gurmanski svet</h1>
+        <p>Odkrij najboljše recepte in kuhaj kot profesionalec</p>
+        <a href="/predlagani_recepti" class="btn">Seznam receptov</a>
+    </div>
+</section>
+
+<section class="features">
+    <h2>Kako ti lahko pomagamo?</h2>
+
+    <div class="cards">
+
+        <a href="/predlagani_recepti" class="card">
+            <h3>Preglej recepte</h3>
+            <p>Recepti uporabnikov</p>
+        </a>
+
+        <a href="/hladilnik" class="card">
+            <h3>Hladilnik</h3>
+            <p>Uporabi sestavine, ki jih imaš</p>
+        </a>
+
+        <a href="/kalkulator" class="card">
+            <h3>Kalkulator</h3>
+            <p>Prilagodi količine</p>
+        </a>
+
+        <a href="/pretvori" class="card">
+            <h3>Pretvornik</h3>
+            <p>Pretvori enote hitro</p>
+        </a>
+
+        <a href="/info" class="card">
+            <h3>Info</h3>
+            <p>Info o sestavinah</p>
+        </a>
+
+        <a href="/tecaji" class="card">
+            <h3>Tečaji</h3>
+            <p>Odkrij kuharske tečaje</p>
+        </a>
+
+        <a href="/dodajRecept" class="card">
+            <h3>Dodaj recept</h3>
+            <p>Predlagaj svoj recept</p>
+        </a>
+
+        <a href="/zdravi" class="card">
+            <h3>Zdrav obrok</h3>
+            <p>Najdi zdrave recepte</p>
+        </a>
+        
+        <a href="/randomRecipe" class="card">
+            <h3>Naključni recept</h3>
+            <p>Prepusti se presenečenju</p>
+        </a>
+
+
+
+
+    </div>
+</section>
+
+<section class="cta">
+    <h4>Sploh ne veš kaj kuhati?</h4><br>
+    <a href="/randomRecipe" class="btn">Presenetite me</a>
+</section>
+
+
+</main>
+
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-section">
+                <h3>Gurmanski svet</h3>
+                <p>Tvoja destinacija za najboljše recepte</p>
+            </div>
+            
+        <div class="footer-section">
+            <h4>Kontakt</h4>
+            <p>Email: info@gurmanskisvet.si</p>
+            <p class="copyright">
+                © 2026 Gurmanski svet<br>
+                Vse pravice pridržane<br><br>
+                Pojdi si kaj skuhat ;)
+            </p>
+        </div>
+            <div class="footer-section">
+                <h4>Navigacija</h4>
+                <a href="/">Domov</a>
+                <a href="/randomRecipe">Recepti</a>
+                <a href="/kalkulator">Orodja</a>
+                <a href="/tecaji">Tečaji</a>
+            </div>
+
+
+
+        </div>
+    </footer>
+</body>
+</html>

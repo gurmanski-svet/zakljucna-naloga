@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Stran ni najdena</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+            </a>
+            <div class="logo">Gurmanski svet</div>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="/">Domov</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Recepti ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/randomRecipe">Naključni recept</a>
+                        <a href="/hladilnik">Po sestavinah</a>
+                        <a href="/predlagani_recepti">Predlagani recepti</a>
+                        <a href="/idSearch">Iskanje po ID</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Orodja ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/kalkulator">Kalkulator</a>
+                        <a href="/pretvori">Pretvornik enot</a>
+                        <a href="/info">Info o sestavinah</a>
+                    </div>
+                </li>
+
+                <li><a href="/zdravi">Zdravi obrok</a></li>
+                <li><a href="/tecaji">Tečaji</a></li>
+                <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+                {% if username %}
+                <li class="dropdown">
+                    <a href="#">Hej {{ username }} ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/logout">Odjava</a>
+                    </div>
+                </li>
+                {% else %}
+                <li><a href="/login">Prijava</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- 404 CONTENT -->
+<section class="error-page">
+    <h1>404</h1>
+    <h2>Stran ni najdena</h2>
+    <p>Ups! Stran, ki jo iščeš, ne obstaja ali je bila odstranjena.</p>
+
+    <a href="/" class="btn">Nazaj na začetno stran</a>
+</section>
+
+</body>
+</html>

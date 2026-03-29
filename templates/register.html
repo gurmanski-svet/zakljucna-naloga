@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registracija</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
+</head>
+
+<body>
+
+
+<header>
+    <div class="container">
+
+        <!-- LOGO + NASLOV -->
+        <div class="logo-container">
+            <a href="/">
+                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+            </a>
+            <div class="logo">Gurmanski svet</div>
+        </div>
+
+        <!-- NAVIGACIJA -->
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Domov</a></li>
+
+                <li class="dropdown">
+                    <a href="#">Recepti ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/randomRecipe">Naključni recept</a>
+                        <a href="/hladilnik">Po sestavinah</a>
+                        <a href="/predlagani_recepti">Predlagani recepti</a>
+                        <a href="/idSearch">Iskanje po ID</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Orodja ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/kalkulator">Kalkulator</a>
+                        <a href="/pretvori">Pretvornik enot</a>
+                        <a href="/info">Info o sestavinah</a>
+                    </div>
+                </li>
+
+                <li><a href="/zdravi">Zdravi obrok</a></li>
+                <li><a href="/tecaji">Tečaji</a></li>
+                <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+{% if username %}
+<li class="dropdown">
+    <a href="#">Hej {{ username }} ▾</a>
+    <div class="dropdown-content">
+        <a href="/logout">Odjava</a>
+    </div>
+</li>
+{% else %}
+<li><a href="/login">Prijava</a></li>
+{% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+    <section class="login-container">
+    
+        <div class="login-box">
+            <h1>Registracija</h1>
+        
+            <form action="/register" method="POST">
+                <input type="text" id="username" placeholder="Uporabniško ime" required>
+                <input type="text" id="mail" placeholder="E-mail" required>
+                <input type="password" id="geslo" placeholder="Geslo" required>
+            </form>
+        
+            <button onclick="register()" class="login-btn">Registriraj se</button>
+        
+            <div id="output"></div>
+        
+            <p class="register-link">
+                Že imate račun? <a href="/login">Prijava</a>
+            </p>
+        </div>
+    
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function register() {
+            var output = document.getElementById("output");
+
+            $.ajax({
+                url: "/register",  
+                method: "POST",  
+                data: {
+                    username: username.value,
+                    mail: mail.value,
+                    geslo: geslo.value
+                },
+                success: function (result) {
+                    output.innerHTML = result.message + " <a href='" + result.povezava + "'>Kliknite tukaj</a>";
+
+                }
+            });
+        }
+    </script>
+</body>
+</html>
