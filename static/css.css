@@ -856,6 +856,10 @@ h2 {
     text-align: center;
 }
 
+.zdravi-container a {
+    color: #FF7043
+}
+
 .zdravi-container h1 {
     color: #FF7043;
     margin-bottom: 10px;
@@ -971,4 +975,111 @@ h2 {
     border-radius: 8px;
     margin-bottom: 15px;
     font-weight: bold;
+}
+
+@media (max-width: 768px) {
+
+    /* HEADER */
+    .container {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    nav ul li a {
+        padding: 10px;
+        width: 100%;
+    }
+
+    /* HERO */
+    .hero {
+        height: auto;
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    /* CARDS */
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* LOGIN */
+    .login-box {
+        width: 90%;
+        padding: 30px;
+    }
+
+    /* TABLE */
+    .table-container {
+        padding: 0 10px;
+    }
+
+    .user-table th,
+    .user-table td {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    /* RECEPTI */
+    .recept-box {
+        flex-direction: column;
+    }
+
+    .recept-img {
+        width: 100%;
+        height: 200px;
+    }
+
+    .recept-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    /* SEARCH */
+    .iskanje input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .iskanje button {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    /* FORME (vse tvoje containerje) */
+    .hladilnik-container,
+    .id-container,
+    .kalkulator-container,
+    .pretvori-container,
+    .info-container,
+    .zdravi-container,
+    .dodaj-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    /* GRID kalkulator */
+    .kolicine-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* FOOTER */
+    .footer-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* CTA */
+    .cta h4 {
+        font-size: 2rem;
+    }
 }
