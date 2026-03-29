@@ -8,73 +8,78 @@
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 </head>
 <body>
-<header>
-    <div class="container">
+    <header>
+        <div class="container">
 
-        <!-- LOGO + NASLOV -->
-        <div class="logo-container">
-            <a href="/">
-                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
-            </a>
-            <div class="logo">Gurmanski svet</div>
+            <!-- LOGO + NASLOV -->
+            <div class="logo-container">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+                </a>
+                <div class="logo">Gurmanski svet</div>
+            </div>
+
+            <!-- NAVIGACIJA -->
+            <nav>
+                <ul>
+                    <li><a href="/" class="active">Domov</a></li>
+
+                    <li class="dropdown">
+                        <a href="#">Recepti ▾</a>
+                        <div class="dropdown-content">
+                            <a href="/randomRecipe">Naključni recept</a>
+                            <a href="/hladilnik">Po sestavinah</a>
+                            <a href="/predlagani_recepti">Predlagani recepti</a>
+                            <a href="/idSearch">Iskanje po ID</a>
+                        </div>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#">Orodja ▾</a>
+                        <div class="dropdown-content">
+                            <a href="/kalkulator">Kalkulator</a>
+                            <a href="/pretvori">Pretvornik enot</a>
+                            <a href="/info">Info o sestavinah</a>
+                        </div>
+                    </li>
+
+                    <li><a href="/zdravi">Zdravi obrok</a></li>
+                    <li><a href="/tecaji">Tečaji</a></li>
+                    <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+    {% if username %}
+    <li class="dropdown">
+        <a href="#">Hej {{ username }} ▾</a>
+        <div class="dropdown-content">
+            <a href="/logout">Odjava</a>
+        </div>
+    </li>
+    {% else %}
+    <li><a href="/login">Prijava</a></li>
+    {% endif %}
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <div class="info-container">
+
+        <h1>Informacije o sestavinah</h1>
+
+        <input type="text" id="sestavina" placeholder="Vnesite sestavino">
+
+        <button class="btn" onclick="getInfo()">Dobi informacije</button>
+
+        <div class="opozorilo-box">
+            <strong>Opozorilo:</strong><br>
+            - Vnesite veljavno sestavino<br>
+            - Podatki so informativni
         </div>
 
-        <!-- NAVIGACIJA -->
-        <nav>
-            <ul>
-                <li><a href="/" class="active">Domov</a></li>
-
-                <li class="dropdown">
-                    <a href="#">Recepti ▾</a>
-                    <div class="dropdown-content">
-                        <a href="/randomRecipe">Naključni recept</a>
-                        <a href="/hladilnik">Po sestavinah</a>
-                        <a href="/predlagani_recepti">Predlagani recepti</a>
-                        <a href="/idSearch">Iskanje po ID</a>
-                    </div>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#">Orodja ▾</a>
-                    <div class="dropdown-content">
-                        <a href="/kalkulator">Kalkulator</a>
-                        <a href="/pretvori">Pretvornik enot</a>
-                        <a href="/info">Info o sestavinah</a>
-                    </div>
-                </li>
-
-                <li><a href="/zdravi">Zdravi obrok</a></li>
-                <li><a href="/tecaji">Tečaji</a></li>
-                <li><a href="/dodajRecept">Dodaj recept</a></li>
-
-{% if username %}
-<li class="dropdown">
-    <a href="#">Hej {{ username }} ▾</a>
-    <div class="dropdown-content">
-        <a href="/logout">Odjava</a>
     </div>
-</li>
-{% else %}
-<li><a href="/login">Prijava</a></li>
-{% endif %}
-            </ul>
-        </nav>
 
-    </div>
-</header>
-
-    <a href="/">Domov</a>
-    <h1>Dobite informacije o sestavinah</h1>
-
-    <input type="text" id="sestavina" placeholder="Vnesite sestavino">
-
-    <div class="gumb">
-        <button onclick="getInfo()">Dobi informacije</button>
-    </div>
-    
-
-
-    <div id="output"></div>
+    <div class="info-output" id="output"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
@@ -87,17 +92,32 @@
                     sestavina: sestavina.value,
 
                 },
-                //output narjen s chatom
                 success: function (result) {
-                    let html = `<h2>Hranilne vrednosti za: ${result.name}</h2>`;
-                    html += `<table><thead><tr><th>Hranilo</th><th>Količina</th></tr></thead><tbody>`;
-                    
-                    for (const [key, value] of Object.entries(result)) {
-                        if (key === 'name') continue;
-                        html += `<tr><td>${key}</td><td>${value.amount} ${value.unit}</td></tr>`;
+                
+                    if (result.error) {
+                        output.innerHTML = result.error;
+                        return;
                     }
                 
-                    html += `</tbody></table>`;
+                    let html = "<h2>Hranilne vrednosti za: " + result.name + "</h2>";
+                
+                    html += "<table>";
+                    html += "<tr><th>Hranilo</th><th>Količina</th></tr>";
+                    
+                    for (let key in result) {
+                    
+                        if (key == "name");
+                    
+                        let value = result[key];
+                    
+                        html += "<tr>";
+                        html += "<td>" + key + "</td>";
+                        html += "<td>" + value.amount + " " + value.unit + "</td>";
+                        html += "</tr>";
+                    }
+                
+                    html += "</table>";
+                
                     output.innerHTML = html;
                 }
 

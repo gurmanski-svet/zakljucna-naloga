@@ -18,7 +18,6 @@ def getRandomRecipe():
     vrsta = request.args.get("vrsta")
     url = f"https://api.spoonacular.com/recipes/complexSearch?query={sestavine}&cuisine={vrsta}"
     call = api_request(url)
-
     if call["totalResults"] == 0:
         return jsonify({"message": "Recept s takimi sestavinami ne obstaja."})
     
@@ -35,6 +34,7 @@ def getRandomRecipe():
             if "nameClean" in ingredient:
                 amount.append(ingredient["original"])
 
+    sestavine_html = "<br>".join(amount)
 
         #print(ing,amount )
 
@@ -51,7 +51,7 @@ def getRandomRecipe():
     return jsonify({
         "slika": slika_html,
         "ime": recept["title"],
-        "ingredients": amount,
+        "ingredients": sestavine_html,
         "navodila": recept["instructions"]
     })
 
@@ -82,10 +82,12 @@ def getHladilnik():
         if "nameClean" in ingredient:
             amount.append(ingredient["original"])
 
+    ingredient_html = "<br>".join(amount)
+
     return jsonify({
         "slika": f'<img src="{call_recept["image"]}">',
         "ime": call_recept["title"],
-        "sestavine": amount,
+        "sestavine": ingredient_html,
         "navodila": call_recept["instructions"]
     })
 
@@ -101,6 +103,9 @@ def getInfo():
 
     url = f"https://api.spoonacular.com/food/ingredients/search?query={sestavina}"
     call = api_request(url)
+
+    if not call.get("results"):
+        return jsonify({"error": "Sestavina ni bila najdena."})
 
     id_sestavine = call["results"][0]["id"]
 
@@ -135,7 +140,7 @@ def getInfo():
                 "unit": item["unit"]
             }
 
-    print(nutrition)
+    #print(nutrition)
     return jsonify(nutrition)
 
 

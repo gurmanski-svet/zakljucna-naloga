@@ -62,17 +62,42 @@
 
     </div>
 </header>
-    <a href="/">Domov</a>
-    <h1>Isci po ID-ju recepta</h1>
+    <div class="id-container">
 
-    <input type="text" id="id" placeholder="Vnesite ID recepta" maxlength="6">
-    <button onclick="getIdSearch()">Dobi recept</button>
+        <h1>Iskanje po ID-ju</h1>
 
-    <div id="output0"></div>
-    <div id="output1"></div>
-    <div id="output2"></div>
-    <div id="output3"></div>
-    <div id="output4"></div>
+        <input type="text" id="id" placeholder="Vnesite ID recepta" maxlength="6">
+
+        <button class="btn" onclick="getIdSearch()">Dobi recept</button>
+
+        <div id="output0" style="color:red; margin-top:10px;"></div>
+
+    </div>
+
+    <div id="recepti-container">
+
+        <div class="recept-box">
+
+            <div class="recept-content">
+                <h2 id="output1"></h2>
+
+                <div class="recept-section">
+                    <h3>Sestavine</h3>
+                    <p id="output3"></p>
+                </div>
+
+                <div class="recept-section">
+                    <h3>Navodila</h3>
+                    <p id="output4"></p>
+                </div>
+
+                <!-- slika na dnu -->
+                <div id="output2" style="margin-top: 20px;"></div>
+            </div>
+
+        </div>
+
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>

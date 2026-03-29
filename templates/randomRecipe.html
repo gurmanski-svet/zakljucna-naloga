@@ -8,10 +8,10 @@
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 </head>
 <body>
+
 <header>
     <div class="container">
 
-        <!-- LOGO + NASLOV -->
         <div class="logo-container">
             <a href="/">
                 <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
@@ -19,7 +19,6 @@
             <div class="logo">Gurmanski svet</div>
         </div>
 
-        <!-- NAVIGACIJA -->
         <nav>
             <ul>
                 <li><a href="/" class="active">Domov</a></li>
@@ -62,12 +61,13 @@
 
     </div>
 </header>
+
+<!-- 🔥 ISKANJE -->
+<section class="iskanje">
+    <h1>Naključni recept</h1>
+
+    <input type="text" id="sestavine" placeholder="Vpiši sestavine po ang.">
     
-    <a href="/">Domov</a>
-
-    <h1>Dobite nakljucni recept</h1>
-
-    <input type="text" id="sestavine" placeholder="Sestavine">
     <select id="vrsta">
         <option value="">Izberi kuhinjo</option>
         <option value="African">African</option>
@@ -98,43 +98,62 @@
         <option value="Thai">Thai</option>
         <option value="Vietnamese">Vietnamese</option>
     </select>
-    <button onclick="getRandomRecipe()">Dobi recept</button>
 
-    <div id="output0" style="color: red;"></div>
-    <div id="output1"></div>
-    <div id="output2"></div>
-    <div id="output3"></div>
-    <div id="output4"></div>
+    <button class="btn" onclick="getRandomRecipe()">Dobi recept</button>
+</section>
 
-    
+<!-- 🔥 OUTPUT -->
+<div id="recepti-container">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        function getRandomRecipe() {
-            var output = document.getElementById("output");
+    <div id="output0" style="color: red; text-align:center;"></div>
 
+    <div class="recept-box">
+        <div id="output2"></div>
 
-            $.ajax({
-                url: "/getRandomRecipe",
-                data: {
-                    sestavine: sestavine.value,
-                    vrsta: vrsta.value
-                },
-                success: function (result) {
-                
-                    if (result.message) {
-                        output0.innerHTML = result.message;
-                    } else {
-                        output0.innerHTML = ""; // počisti error
-                    }
-                
-                    output1.innerHTML = result.ime || "";
-                    output2.innerHTML = result.slika || "";
-                    output3.innerHTML = result.ingredients || "";
-                    output4.innerHTML = result.navodila || "";
-                }
-            });
+        <div class="recept-content">
+            <h2 id="output1"></h2>
+
+            <div class="recept-section">
+                <h3>Ingredients</h3>
+                <p id="output3"></p>
+            </div>
+
+            <div class="recept-section">
+                <h3>Instructions</h3>
+                <p id="output4"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+function getRandomRecipe() {
+
+    $.ajax({
+        url: "/getRandomRecipe",
+        data: {
+            sestavine: sestavine.value,
+            vrsta: vrsta.value
+        },
+        success: function (result) {
+
+            if (result.message) {
+                output0.innerHTML = result.message;
+            } else {
+                output0.innerHTML = "";
+            }
+
+            output1.innerHTML = result.ime || "";
+            output2.innerHTML = result.slika || "";
+            output3.innerHTML = result.ingredients || "";
+            output4.innerHTML = result.navodila || "";
         }
-    </script>
+    });
+}
+</script>
+
 </body>
 </html>

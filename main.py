@@ -149,7 +149,7 @@ def getKalkulator():
             pretvorjene.append(round(int(sestavina) / int(stevilo)))
 
 
-    #print(pretvorjene)
+    print(pretvorjene)
 
     return {"pretvorjene": pretvorjene}
 

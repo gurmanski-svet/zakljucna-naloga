@@ -8,91 +8,103 @@
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 </head>
 <body>
+    <header>
+        <div class="container">
 
-<header>
-    <div class="container">
+            <!-- LOGO + NASLOV -->
+            <div class="logo-container">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+                </a>
+                <div class="logo">Gurmanski svet</div>
+            </div>
 
-        <!-- LOGO + NASLOV -->
-        <div class="logo-container">
-            <a href="/">
-                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
-            </a>
-            <div class="logo">Gurmanski svet</div>
+            <!-- NAVIGACIJA -->
+            <nav>
+                <ul>
+                    <li><a href="/" class="active">Domov</a></li>
+
+                    <li class="dropdown">
+                        <a href="#">Recepti ▾</a>
+                        <div class="dropdown-content">
+                            <a href="/randomRecipe">Naključni recept</a>
+                            <a href="/hladilnik">Po sestavinah</a>
+                            <a href="/predlagani_recepti">Predlagani recepti</a>
+                            <a href="/idSearch">Iskanje po ID</a>
+                        </div>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#">Orodja ▾</a>
+                        <div class="dropdown-content">
+                            <a href="/kalkulator">Kalkulator</a>
+                            <a href="/pretvori">Pretvornik enot</a>
+                            <a href="/info">Info o sestavinah</a>
+                        </div>
+                    </li>
+
+                    <li><a href="/zdravi">Zdravi obrok</a></li>
+                    <li><a href="/tecaji">Tečaji</a></li>
+                    <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+    {% if username %}
+    <li class="dropdown">
+        <a href="#">Hej {{ username }} ▾</a>
+        <div class="dropdown-content">
+            <a href="/logout">Odjava</a>
+        </div>
+    </li>
+    {% else %}
+    <li><a href="/login">Prijava</a></li>
+    {% endif %}
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+        <a href="/">Domov</a><br>
+
+
+        <div class="hladilnik-container">
+
+        <h1>Vnesi sestavine iz svojega hladilnika</h1>
+
+        <input type="text" id="sestavina1" placeholder="Sestavina 1">
+        <input type="text" id="sestavina2" placeholder="Sestavina 2">
+        <input type="text" id="sestavina3" placeholder="Sestavina 3">
+        <input type="text" id="sestavina4" placeholder="Sestavina 4">
+
+        <button class="btn" onclick="getHladilnik()">Dobi recept</button>
+
+        <div class="opozorilo-box">
+            <strong>Opozorilo:</strong><br>
+            - Vnesite vsaj 1 sestavino<br>
+            - Sestavine se ne smejo ponavljati
         </div>
 
-        <!-- NAVIGACIJA -->
-        <nav>
-            <ul>
-                <li><a href="/" class="active">Domov</a></li>
-
-                <li class="dropdown">
-                    <a href="#">Recepti ▾</a>
-                    <div class="dropdown-content">
-                        <a href="/randomRecipe">Naključni recept</a>
-                        <a href="/hladilnik">Po sestavinah</a>
-                        <a href="/predlagani_recepti">Predlagani recepti</a>
-                        <a href="/idSearch">Iskanje po ID</a>
-                    </div>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#">Orodja ▾</a>
-                    <div class="dropdown-content">
-                        <a href="/kalkulator">Kalkulator</a>
-                        <a href="/pretvori">Pretvornik enot</a>
-                        <a href="/info">Info o sestavinah</a>
-                    </div>
-                </li>
-
-                <li><a href="/zdravi">Zdravi obrok</a></li>
-                <li><a href="/tecaji">Tečaji</a></li>
-                <li><a href="/dodajRecept">Dodaj recept</a></li>
-
-{% if username %}
-<li class="dropdown">
-    <a href="#">Hej {{ username }} ▾</a>
-    <div class="dropdown-content">
-        <a href="/logout">Odjava</a>
     </div>
-</li>
-{% else %}
-<li><a href="/login">Prijava</a></li>
-{% endif %}
-            </ul>
-        </nav>
+
+    <div class="hladilnik-output">
+
+        <div class="recept-box">
+            <div class="recept-content">
+                <h2 id="output1"></h2>
+
+                <div class="recept-section">
+                    <h3>Ingredients</h3>
+                    <p id="output3"></p>
+                </div>
+
+                <div class="recept-section">
+                    <h3>Instructions</h3>
+                    <p id="output4"></p>
+                </div>
+                <br>
+                <div id="output2"></div>
+            </div>
+        </div>
 
     </div>
-</header>
-    <a href="/">Domov</a><br>
-
-
-    <h1>Vnesi sestavine iz svojega hladilnika</h1>
-
-    
-    <br>
-
-
-    <input type="text" id="sestavina1" placeholder="Sestavina 1"><br>
-    <input type="text" id="sestavina2" placeholder="Sestavina 2"><br>
-    <input type="text" id="sestavina3" placeholder="Sestavina 3"><br>
-    <input type="text" id="sestavina4" placeholder="Sestavina 4"><br>
-
-    <button onclick="getHladilnik()">Dobi recept</button>
-
-    <br>
-     <table border="1">
-        <th colspan="2">Opozorilo</th>
-        <tr>
-            <td>Vnesite vsaj 1 sestavino </td>
-            <td>Sestavine se ne smejo ponavljati.</td>
-        </tr>
-
-     </table>
-
-    <div id="output1"></div>
-    <div id="output2"></div>
-    <div id="output3"></div>
-    <div id="output4"></div>
 
 
 
