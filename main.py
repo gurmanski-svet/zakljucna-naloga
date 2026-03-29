@@ -144,7 +144,7 @@ def getKalkulator():
 
     for sestavina in sez_kolicin:
         if sestavina == "":
-            sestavina = 0
+            pretvorjene.append(0)
         else:
             pretvorjene.append(round(int(sestavina) / int(stevilo)))
 
@@ -168,4 +168,5 @@ def tecaji():
     return render_template("kuharski_tecaji.html")
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
