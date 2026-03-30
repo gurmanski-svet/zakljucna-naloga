@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Domov</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 </head>
@@ -94,53 +94,59 @@
     <div class="cards">
 
         <a href="/predlagani_recepti" class="card">
+            <i class="fa-solid fa-fire-burner" id="ikona"></i>
             <h3>Preglej recepte</h3>
             <p>Recepti uporabnikov</p>
         </a>
 
         <a href="/hladilnik" class="card">
+            <i class="fa-solid fa-snowflake" id="ikona"></i>
             <h3>Hladilnik</h3>
             <p>Uporabi sestavine, ki jih imaš</p>
         </a>
 
         <a href="/kalkulator" class="card">
+            <i class="fa-solid fa-calculator" id="ikona"></i>
             <h3>Kalkulator</h3>
             <p>Prilagodi količine</p>
         </a>
 
+        <a href="/randomRecipe" class="card">
+            <i class="fa-solid fa-magnifying-glass" id="ikona"></i>
+            <h3>Naključni recept</h3>
+            <p>Prepusti se presenečenju</p>
+        </a>
+
         <a href="/pretvori" class="card">
+            <i class="fa-solid fa-arrow-right-arrow-left" id="ikona"></i>
             <h3>Pretvornik</h3>
             <p>Pretvori enote hitro</p>
         </a>
 
         <a href="/info" class="card">
+            <i class="fa-solid fa-info" id="ikona"></i>
             <h3>Info</h3>
             <p>Info o sestavinah</p>
         </a>
 
         <a href="/tecaji" class="card">
+            <i class="fa-solid fa-school-flag" id="ikona"></i>
             <h3>Tečaji</h3>
             <p>Odkrij kuharske tečaje</p>
         </a>
 
         <a href="/dodajRecept" class="card">
+            <i class="fa-solid fa-plus" id="ikona"></i>
             <h3>Dodaj recept</h3>
             <p>Predlagaj svoj recept</p>
         </a>
 
         <a href="/zdravi" class="card">
+            <i class="fa-solid fa-apple-whole" id="ikona"></i>
             <h3>Zdrav obrok</h3>
             <p>Najdi zdrave recepte</p>
         </a>
         
-        <a href="/randomRecipe" class="card">
-            <h3>Naključni recept</h3>
-            <p>Prepusti se presenečenju</p>
-        </a>
-
-
-
-
     </div>
 </section>
 

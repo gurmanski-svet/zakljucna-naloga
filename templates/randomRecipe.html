@@ -64,9 +64,9 @@
 
 <!-- 🔥 ISKANJE -->
 <section class="iskanje">
-    <h1>Naključni recept</h1>
+    <h1>Poišči recept</h1>
 
-    <input type="text" id="sestavine" placeholder="Vpiši sestavine po ang.">
+    <input type="text" id="sestavine" placeholder="Išči po receptih po ang.">
     
     <select id="vrsta">
         <option value="">Izberi kuhinjo</option>
@@ -99,7 +99,7 @@
         <option value="Vietnamese">Vietnamese</option>
     </select>
 
-    <button class="btn" onclick="getRandomRecipe()">Dobi recept</button>
+    <button class="btn" onclick="getRandomRecipe()">Najdi recept</button>
 </section>
 
 <!-- 🔥 OUTPUT -->
@@ -110,7 +110,7 @@
     <div class="recept-box">
         <div id="output2"></div>
 
-        <div class="recept-content">
+        <div class="recept-content" style="border-left: 2px solid #FF7043">
             <h2 id="output1"></h2>
 
             <div class="recept-section">

@@ -1,4 +1,3 @@
-/* Osnovni reset in tipografija */
 * {
     margin: 0;
     padding: 0;
@@ -6,11 +5,18 @@
     font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
 }
 
-body {
-    margin: 0;
+#ikona {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    color: #FF7043;
 }
 
-/* Header */
+h1,h2,h3 {
+    color: #FF7043 !important;
+}
+
+/* ==================== HEADER ==================== */
+
 header {
     background-color: #FF7043;
     color: white;
@@ -35,7 +41,8 @@ header {
     font-weight: bold;
 }
 
-/* Navigacija */
+/* ==================== NAVIGATION ==================== */
+
 nav ul {
     list-style: none;
     display: flex;
@@ -59,7 +66,8 @@ nav ul li a.active {
     background-color: #BF360C;
 }
 
-/* Dropdown meni */
+/* ==================== DROPDOWN ==================== */
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -88,15 +96,24 @@ nav ul li a.active {
     left: auto;
 }
 
-.uspesna-oddaja {
+/* ==================== FLASH / STATUS MESSAGES ==================== */
+
+.uspesna-oddaja,
+.flash-msg {
     background-color: #0ada89;
     color: #ffffff;
     text-align: center;
     font-weight: bold;
-
 }
 
-/* HERO */
+.flash-msg {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* ==================== HERO ==================== */
+
 .hero {
     height: 70vh;
     background: url("/static/slike/ozadje.png") center/cover no-repeat;
@@ -109,7 +126,13 @@ nav ul li a.active {
 
 .hero h1 {
     font-size: 3rem;
-    text-shadow: 1px 1px #000000;
+    text-shadow: 1px 1px #646464;
+}
+
+.hero p {
+    margin: 15px 0 30px;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px #646464;
 }
 
 h2 {
@@ -117,12 +140,7 @@ h2 {
     color: #FF7043;
 }
 
-.hero p {
-    margin: 15px 0;
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    text-shadow: 1px 1px #000000;
-}
+/* ==================== BUTTONS ==================== */
 
 .btn {
     background-color: #FF7043;
@@ -131,20 +149,19 @@ h2 {
     text-decoration: none;
     border-radius: 8px;
     font-weight: bold;
-
 }
 
 .btn:hover {
     background-color: #BF360C;
 }
 
-/* FEATURES */
+/* ==================== FEATURES ==================== */
+
 .features {
     padding: 50px 20px;
     text-align: center;
-    max-width: 900px;   /* 🔥 to naredi ozje */
-    margin: 0 auto;     /* 🔥 to centrira */
-
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .features h1 {
@@ -158,7 +175,7 @@ h2 {
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* 🔥 3 na vrstico */
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin-top: 30px;
 }
@@ -177,13 +194,13 @@ h2 {
     transform: translateY(-5px);
 }
 
-/* CTA */
+/* ==================== CTA ==================== */
+
 .cta {
     background: url("slike/ozadje_2.png") center/cover no-repeat;
     color: rgb(255, 255, 255);
     text-align: center;
     padding: 100px 20px;
-    
 }
 
 .cta h4 {
@@ -192,12 +209,13 @@ h2 {
     text-shadow: 1px 1px #000000;
 }
 
-.cta a{
+.cta a {
     font-weight: bold;
     font-size: large;
 }
 
-/* 404 PAGE */
+/* ==================== 404 ERROR PAGE ==================== */
+
 .error-page {
     height: 80vh;
     display: flex;
@@ -221,7 +239,8 @@ h2 {
     color: #555;
 }
 
-/* LOGIN PAGE */
+/* ==================== LOGIN ==================== */
+
 .login-container {
     height: 80vh;
     display: flex;
@@ -229,12 +248,20 @@ h2 {
     align-items: center;
 }
 
+.login-container h1 {
+    color: #FF7043;
+}
+
+.login-container button {
+    font-weight: bold;
+}
+
 .login-box {
     background: white;
     padding: 60px;
     border-radius: 16px;
     width: 420px;
-    min-height: 520px;   /* 🔥 večji zaradi 3 inputov */
+    min-height: 520px;
     text-align: center;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
@@ -243,17 +270,15 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* INPUTI */
 .login-box input {
     width: 100%;
-    padding: 14px;          /* večji input */
+    padding: 14px;
     margin: 12px 0;
     border: 1px solid #ccc;
     border-radius: 8px;
-    font-size: 1.1rem;      /* večji tekst */
+    font-size: 1.1rem;
 }
 
-/* BUTTON */
 .login-btn {
     width: 100%;
     padding: 12px;
@@ -271,15 +296,14 @@ h2 {
     background-color: #BF360C;
 }
 
-/* OUTPUT MESSAGE */
 #output {
     margin-top: 10px;
 }
 
-#output a:visited{
+#output a:visited {
     color: #FF7043;
 }
-/* REGISTER LINK */
+
 .register-link {
     margin-top: 15px;
     font-size: 0.9rem;
@@ -294,8 +318,8 @@ h2 {
     text-decoration: underline;
 }
 
+/* ==================== FOOTER ==================== */
 
-/* FOOTER */
 .footer {
     background-color: #2E2E2E;
     color: white;
@@ -305,43 +329,29 @@ h2 {
 
 .footer-container {
     max-width: 900px;
-    width: 100%;
+    margin: 0 auto;
     display: flex;
-    margin-left: auto;
-    margin-right: auto;
     justify-content: center;
     gap: 50px;
-    
 }
 
-.footer a{
-    color: white;
-}
-
-.footer a:visited {
-    color: white;
-}
-
-.footer-section{
+.footer-section {
     text-align: center;
 }
 
-.footer-container a:visited{
+.footer a,
+.footer a:visited {
     color: white;
-}
-
-.footer a {
     text-decoration: none;
 }
 
-/* TABLE CONTAINER */
+/* ==================== ADMIN TABLE ==================== */
+
 .table-container {
     max-width: 900px;
-    margin: 0 auto;
-    margin-top: 30px;
+    margin: 30px auto;
 }
 
-/* TABLE */
 .user-table {
     width: 100%;
     border-collapse: collapse;
@@ -355,7 +365,6 @@ h2 {
     color: #FF7043;
 }
 
-/* HEADER */
 .user-table th {
     background-color: #FF7043;
     color: white;
@@ -363,7 +372,6 @@ h2 {
     text-align: center;
 }
 
-/* CELICE */
 .user-table td {
     padding: 12px;
     border-bottom: 1px solid #eee;
@@ -372,12 +380,10 @@ h2 {
     overflow-y: auto;
 }
 
-/* ROW HOVER */
 .user-table tr:hover {
     background-color: #f9f9f9;
 }
 
-/* DELETE BUTTON */
 .delete-btn {
     background-color: gray;
     color: white;
@@ -392,101 +398,42 @@ h2 {
     background-color: #8B0000;
 }
 
-/* STATUS BOX */
 .status-box {
     display: inline-block;
     width: 12px;
     height: 12px;
-    border-radius: 3px;   /* malo zaobljen */
+    border-radius: 3px;
 }
 
-/* barve */
-.status-box.pending {
-    background-color: rgb(240, 240, 93);
-
-}
-
-.status-box.approved {
-    background-color: #4CAF50;
-}
-
-.status-box.rejected {
-    background-color: #BF360C;
-}
-
-/* ACTION BUTTONS */
-.potrdi-btn {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.zavrni-btn {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-}
+.status-box.pending  { background-color: rgb(240, 240, 93); }
+.status-box.approved { background-color: #4CAF50; }
+.status-box.rejected { background-color: #BF360C; }
 
 .akcije {
     display: flex;
-    gap: 5px;              /* razmik med gumbi */
-    justify-content: center; /* lahko tudi flex-start */
+    gap: 5px;
+    justify-content: center;
 }
 
-/* CONTENT */
-.recept-content {
-    padding: 20px;
-    flex: 1;
+.potrdi-btn,
+.zavrni-btn {
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-/* NASLOV */
-.recept-content h2 {
-    color: #FF7043;
-    margin-bottom: 10px;
-}
+.potrdi-btn { background-color: green; margin-right: 5px; }
+.zavrni-btn { background-color: red; }
 
-/* META INFO */
-.recept-meta {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-    color: #555;
-}
+/* ==================== RECIPES ==================== */
 
-/* SECTIONS */
-.recept-section {
-    margin-top: 10px;
-    border-left: 3px solid #FF7043;
-    padding-left: 5px;
-    margin-bottom: 30px;
-}
-
-.recept-section h3 {
-    margin-bottom: 5px;
-}
-
-/* TEXT LIMIT (da ni predolg) */
-.recept-section p {
-    white-space: normal;
-    word-break: break-word;
-    
-}
-
-/* CONTAINER */
 #recepti-container {
     max-width: 900px;
     margin: 30px auto;
 }
 
-/* CARD */
 .recept-box {
     display: flex;
     gap: 20px;
@@ -497,27 +444,47 @@ h2 {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* 🔥 SLIKA (ključni del) */
 .recept-img {
     width: 200px;
     height: 150px;
-    object-fit: cover;   /* da ne raztegne slike */
+    object-fit: cover;
     border-radius: 8px;
 }
 
-/* CONTENT */
 .recept-content {
+    padding: 20px;
     flex: 2;
 }
 
-/* META */
+.recept-content h2 {
+    color: #FF7043;
+    margin-bottom: 10px;
+}
+
 .recept-meta {
-    margin: 10px 0;
-    font-size: 0.9rem;
-    color: #555;
     display: flex;
     gap: 15px;
+    margin: 10px 0 15px;
+    font-size: 0.9rem;
+    color: #555;
 }
+
+.recept-section {
+    margin-top: 10px;
+    padding-left: 5px;
+    margin-bottom: 30px;
+}
+
+.recept-section h3 {
+    margin-bottom: 5px;
+}
+
+.recept-section p {
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* ==================== SEARCH ==================== */
 
 .iskanje {
     text-align: center;
@@ -526,11 +493,11 @@ h2 {
 
 .iskanje h1 {
     color: #FF7043;
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
-/* INPUT */
 .iskanje input {
     padding: 10px 15px;
     width: 250px;
@@ -541,12 +508,10 @@ h2 {
     transition: 0.2s;
 }
 
-/* focus efekt */
 .iskanje input:focus {
     border-color: #FF7043;
 }
 
-/* BUTTON */
 .iskanje button {
     padding: 10px 18px;
     margin-left: 10px;
@@ -562,7 +527,6 @@ h2 {
     background-color: #BF360C;
 }
 
-/* SELECT (kuhinja) */
 #vrsta {
     padding: 10px 15px;
     border-radius: 8px;
@@ -574,18 +538,24 @@ h2 {
     cursor: pointer;
 }
 
-/* hover */
 #vrsta:hover {
     border-color: #FF7043;
 }
 
-/* opcije */
-#vrsta option {
-    padding: 10px;
-}
+/* ==================== SHARED FORM CONTAINERS ==================== */
+/*
+ * Shared base styles for:
+ * .hladilnik-container, .id-container, .kalkulator-container,
+ * .pretvori-container, .info-container, .zdravi-container, .dodaj-container
+ */
 
-/* HLADILNIK PAGE */
-.hladilnik-container {
+.hladilnik-container,
+.id-container,
+.kalkulator-container,
+.pretvori-container,
+.info-container,
+.zdravi-container,
+.dodaj-container {
     max-width: 600px;
     margin: 40px auto;
     background: white;
@@ -595,14 +565,27 @@ h2 {
     text-align: center;
 }
 
-/* naslov */
-.hladilnik-container h1 {
+.hladilnik-container h1,
+.id-container h1,
+.kalkulator-container h1,
+.pretvori-container h1,
+.info-container h1,
+.zdravi-container h1,
+.dodaj-container h1 {
     color: #FF7043;
     margin-bottom: 20px;
 }
 
-/* inputi */
-.hladilnik-container input {
+.hladilnik-container input,
+.id-container input,
+.kalkulator-container input,
+.pretvori-container input,
+.pretvori-container select,
+.info-container input,
+.zdravi-container input,
+.dodaj-container input,
+.dodaj-container textarea,
+.dodaj-container select {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -612,19 +595,67 @@ h2 {
     transition: 0.2s;
 }
 
-.hladilnik-container input:hover {
+.hladilnik-container input:focus,
+.id-container input:focus,
+.kalkulator-container input:focus,
+.pretvori-container input:focus,
+.pretvori-container select:focus,
+.info-container input:focus,
+.zdravi-container input:focus {
     border-color: #FF7043;
+    box-shadow: 0 0 5px rgba(255, 112, 67, 0.5);
 }
 
-/* button */
-.hladilnik-container button {
+.hladilnik-container button,
+.id-container button,
+.pretvori-container button,
+.info-container button,
+.zdravi-container button,
+.dodaj-container input[type="submit"] {
     width: 100%;
     margin-top: 15px;
     font-weight: bold;
     border: none;
 }
 
-/* opozorilo box */
+/* ==================== INDIVIDUAL CONTAINER TWEAKS ==================== */
+
+.kalkulator-container input {
+    margin: 8px 0;
+}
+
+.zdravi-container a,
+.zdravi-container a:visited {
+    color: #FF7043;
+}
+
+.zdravi-container input:hover,
+.hladilnik-container input:hover {
+    border-color: #FF7043;
+}
+
+.dodaj-container input[type="submit"] {
+    background-color: #FF7043;
+    color: white;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.dodaj-container input[type="submit"]:hover {
+    background-color: #BF360C;
+}
+
+.dodaj-container textarea {
+    resize: vertical;
+}
+
+.dodaj-container input[type="file"] {
+    border: none;
+}
+
+/* ==================== MISC WIDGETS ==================== */
+
 .opozorilo-box {
     margin-top: 20px;
     border-left: 5px solid #FF7043;
@@ -633,94 +664,42 @@ h2 {
     font-size: 0.9rem;
 }
 
-/* output (recept) */
-.hladilnik-output {
-    max-width: 900px;
-    margin: 30px auto;
-}
-
-
-/* SEARCH BOX (ID) */
-.id-container {
-    max-width: 500px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.id-container button {
-    border: none;
-    font-weight: bold;
-}
-
-.id-container h1 {
-    color: #FF7043;
-    margin-bottom: 20px;
-}
-
-.id-container input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
+.info-box {
+    margin-top: 20px;
+    background: #f1f1f1;
+    padding: 15px;
     border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
-.id-container input:focus {
-    border-color: #FF7043;
-    box-shadow: 0 0 5px rgba(255, 112, 67, 0.5);
-}
-
-/* KALKULATOR */
-.kalkulator-container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-/* naslov */
-.kalkulator-container h1 {
-    color: #FF7043;
-    margin-bottom: 20px;
-}
-
-/* inputi */
-.kalkulator-container input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-}
-
-.kalkulator-container input:focus {
-    border-color: #FF7043;
-    box-shadow: 0 0 5px rgba(255, 112, 67, 0.5);
-}
-
-/* grid za inpute */
 .kolicine-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
 
-/* output */
-.kalkulator-output {
+/* ==================== OUTPUT AREAS ==================== */
+
+.hladilnik-output,
+.zdravi-output {
+    max-width: 900px;
+    margin: 30px auto;
+}
+
+.kalkulator-output,
+.pretvori-output {
     max-width: 600px;
     margin: 30px auto;
 }
 
-.kalkulator-output ul {
+.pretvori-output {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.kalkulator-output ul,
+.zdravi-output ul {
     list-style: none;
     padding: 0;
 }
@@ -733,94 +712,19 @@ h2 {
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-/* PRETVORNIK */
-.pretvori-container {
-    max-width: 600px;
-    margin: 40px auto;
+.zdravi-output li {
     background: white;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    text-align: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.pretvori-container h1 {
-    color: #FF7043;
-    margin-bottom: 20px;
-}
-
-/* inputi */
-.pretvori-container input,
-.pretvori-container select {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-}
-
-.pretvori-container input:focus,
-.pretvori-container select:focus {
-    border-color: #FF7043;
-    box-shadow: 0 0 5px rgba(255, 112, 67, 0.5);
-}
-
-/* output */
-.pretvori-output {
-    max-width: 600px;
-    margin: 30px auto;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.pretvori-container button {
-    border: none;
-    font-weight: bold;
-}
-
-/* INFO PAGE */
-.info-container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.info-container button {
-    font-weight: bold;
-    border: none;
-}
-
-.info-container h1 {
-    color: #FF7043;
-    margin-bottom: 20px;
-}
-
-.info-container input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-.info-container input:focus {
-    border-color: #FF7043;
-    box-shadow: 0 0 5px rgba(255, 112, 67, 0.5);
-}
-
-/* output */
 .info-output {
     max-width: 700px;
     margin: 30px auto;
 }
 
-/* tabela */
 .info-output table {
     width: 100%;
     border-collapse: collapse;
@@ -845,145 +749,23 @@ h2 {
     background-color: #f9f9f9;
 }
 
-/* ZDRAVI OBROKI */
-.zdravi-container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.zdravi-container a {
-    color: #FF7043
-}
-
-.zdravi-container h1 {
-    color: #FF7043;
-    margin-bottom: 10px;
-}
-
-.zdravi-container input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-.zdravi-container button {
-    font-weight: bold;
-    border: none;
-}
-
-.zdravi-container a:visited {
-    color: #FF7043; 
-}
-
-
-
-.zdravi-container input:focus {
-    border-color: #FF7043;
-    box-shadow: 0 0 5px rgba(255, 112, 67, 0.5);
-}
-
-/* info box */
-.info-box {
-    margin-top: 20px;
-    background: #f1f1f1;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-}
-
-/* output */
-.zdravi-output {
-    max-width: 900px;
-    margin: 30px auto;
-}
-
-.zdravi-output ul {
-    list-style: none;
-    padding: 0;
-}
-
-.zdravi-output li {
-    background: white;
-    margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* DODAJ RECEPT */
-.dodaj-container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.dodaj-container h1 {
-    color: #FF7043;
-    margin-bottom: 20px;
-}
-
-/* form elementi */
-.dodaj-container input,
-.dodaj-container textarea,
-.dodaj-container select {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-}
-
-.dodaj-container textarea {
-    resize: vertical;
-}
-
-/* submit gumb */
-.dodaj-container input[type="submit"] {
-    background-color: #FF7043;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.dodaj-container input[type="submit"]:hover {
-    background-color: #BF360C;
-}
-
-/* file input malo lepši */
-.dodaj-container input[type="file"] {
-    border: none;
-}
-
-/* flash messages */
-.flash-msg {
-    background-color: #0ada89;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    font-weight: bold;
-}
+/* ==================== RESPONSIVE ==================== */
 
 @media (max-width: 768px) {
 
-    /* HEADER */
+    /* --- Header & Nav --- */
+    header {
+        padding: 0.75rem 1rem;
+    }
+
     .container {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         text-align: center;
+    }
+
+    .logo {
+        font-size: 1.4rem;
     }
 
     nav ul {
@@ -991,71 +773,137 @@ h2 {
         width: 100%;
     }
 
-    nav ul li a {
-        padding: 10px;
+    nav ul li {
         width: 100%;
     }
 
-    /* HERO */
+    nav ul li a {
+        padding: 12px 16px;
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    /* Dropdowns full-width on mobile */
+    .dropdown-content {
+        position: static;
+        width: 100%;
+        min-width: unset;
+        box-shadow: none;
+        border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .dropdown:last-child .dropdown-content {
+        right: auto;
+        left: auto;
+    }
+
+    /* --- Hero --- */
     .hero {
         height: auto;
-        padding: 60px 20px;
+        padding: 60px 16px;
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
-    /* CARDS */
+    .hero p {
+        font-size: 1rem;
+    }
+
+    h2 {
+        font-size: 1.7rem;
+    }
+
+    /* --- Cards --- */
     .cards {
         grid-template-columns: 1fr;
+        gap: 14px;
     }
 
-    /* LOGIN */
+    .card {
+        padding: 20px;
+    }
+
+    /* --- CTA --- */
+    .cta {
+        padding: 60px 16px;
+    }
+
+    .cta h4 {
+        font-size: 1.7rem;
+    }
+
+    /* --- Login --- */
+    .login-container {
+        height: auto;
+        padding: 30px 16px;
+        align-items: flex-start;
+    }
+
     .login-box {
-        width: 90%;
-        padding: 30px;
+        width: 100%;
+        padding: 30px 20px;
+        min-height: unset;
+        border-radius: 12px;
     }
 
-    /* TABLE */
+    /* --- Admin Table --- */
     .table-container {
         padding: 0 10px;
+        overflow-x: auto;  /* horizontal scroll instead of clipping */
+    }
+
+    .user-table {
+        font-size: 0.85rem;
+        min-width: 500px;  /* keeps table readable, enables scroll */
     }
 
     .user-table th,
     .user-table td {
-        font-size: 0.9rem;
-        padding: 8px;
+        padding: 8px 6px;
     }
 
-    /* RECEPTI */
+    /* --- Recipes --- */
     .recept-box {
         flex-direction: column;
+        padding: 12px;
     }
 
     .recept-img {
         width: 100%;
-        height: 200px;
+        height: 180px;
+    }
+
+    .recept-content {
+        padding: 10px 0 0;
     }
 
     .recept-meta {
         flex-direction: column;
         align-items: flex-start;
-        gap: 5px;
+        gap: 4px;
     }
 
-    /* SEARCH */
-    .iskanje input {
-        width: 100%;
-        margin-bottom: 10px;
+    /* --- Search --- */
+    .iskanje {
+        margin: 20px 10px;
     }
 
-    .iskanje button {
+    .iskanje h1 {
+        font-size: 1.6rem;
+    }
+
+    .iskanje input,
+    .iskanje button,
+    #vrsta {
         width: 100%;
+        margin: 6px 0;
         margin-left: 0;
     }
 
-    /* FORME (vse tvoje containerje) */
+    /* --- Shared Form Containers --- */
     .hladilnik-container,
     .id-container,
     .kalkulator-container,
@@ -1063,23 +911,46 @@ h2 {
     .info-container,
     .zdravi-container,
     .dodaj-container {
-        width: 90%;
-        padding: 20px;
+        width: 100%;
+        margin: 20px 0;
+        padding: 20px 16px;
+        border-radius: 12px;
+        box-shadow: none;
+        border: 1px solid #eee;
     }
 
-    /* GRID kalkulator */
+    /* --- Kalkulator grid --- */
     .kolicine-grid {
         grid-template-columns: 1fr;
     }
 
-    /* FOOTER */
+    /* --- Output areas --- */
+    .hladilnik-output,
+    .zdravi-output,
+    .kalkulator-output,
+    .pretvori-output,
+    .info-output {
+        margin: 16px 0;
+        padding: 0 10px;
+    }
+
+    .info-output {
+        overflow-x: auto;
+    }
+
+    .info-output table {
+        min-width: 400px;
+    }
+
+    /* --- Footer --- */
+    .footer {
+        padding: 30px 16px;
+        margin-top: 30px;
+    }
+
     .footer-container {
         flex-direction: column;
         gap: 20px;
-    }
-
-    /* CTA */
-    .cta h4 {
-        font-size: 2rem;
+        align-items: center;
     }
 }
