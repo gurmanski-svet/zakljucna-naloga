@@ -87,8 +87,16 @@ nav ul li a.active {
     color: #BF360C;
 }
 
-.dropdown:focus-within .dropdown-content {
-    display: block;
+@media (min-width: 769px) {
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .dropdown:focus-within .dropdown-content {
+        display: block;
+    }
 }
 
 .dropdown:last-child .dropdown-content {
