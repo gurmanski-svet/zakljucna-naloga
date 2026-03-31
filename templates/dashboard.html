@@ -6,18 +6,14 @@
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 </head>
 <body>
-<header>
+    <header>
     <div class="container">
-
-        <!-- LOGO + NASLOV -->
         <div class="logo-container">
             <a href="/">
                 <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
             </a>
             <div class="logo">Gurmanski svet</div>
         </div>
-
-        <!-- NAVIGACIJA -->
         <nav>
             <ul>
                 <li><a href="/" class="active">Domov</a></li>
@@ -45,21 +41,21 @@
                 <li><a href="/tecaji">Tečaji</a></li>
                 <li><a href="/dodajRecept">Dodaj recept</a></li>
 
-{% if username %}
-<li class="dropdown">
-    <a href="#">Hej {{ username }} ▾</a>
-    <div class="dropdown-content">
-        <a href="/logout">Odjava</a>
-    </div>
-</li>
-{% else %}
-<li><a href="/login">Prijava</a></li>
-{% endif %}
+    {% if username %}
+    <li class="dropdown">
+        <a href="#">Hej {{ username }} ▾</a>
+        <div class="dropdown-content">
+            <a href="/logout">Odjava</a>
+        </div>
+    </li>
+    {% else %}
+    <li><a href="/login">Prijava</a></li>
+    {% endif %}
             </ul>
         </nav>
 
     </div>
-</header>
+    </header>
 <section class="features">
 
     <h1>Nadzorna plošča</h1>
@@ -89,5 +85,34 @@
     </div>
 </section>
     
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-section">
+                <h3>Gurmanski svet</h3>
+                <p>Tvoja destinacija za najboljše recepte</p>
+            </div>
+            
+        <div class="footer-section">
+            <h4>Kontakt</h4>
+            <p>Email: info@gurmanskisvet.si</p>
+            <p class="copyright">
+                © 2026 Gurmanski svet<br>
+                Vse pravice pridržane<br><br>
+                Pojdi si kaj skuhat ;)
+            </p>
+        </div>
+            <div class="footer-section">
+                <h4>Navigacija</h4>
+                <a href="/">Domov</a>
+                <a href="/randomRecipe">Recepti</a>
+                <a href="/kalkulator">Orodja</a>
+                <a href="/tecaji">Tečaji</a>
+            </div>
+
+
+
+        </div>
+    </footer>
 </body>
 </html>

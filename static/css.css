@@ -1,8 +1,10 @@
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+body {
+    margin: 0px;
 }
 
 #ikona {
@@ -329,7 +331,10 @@ h2 {
     background-color: #2E2E2E;
     color: white;
     padding: 40px 20px;
-    margin-top: 50px;
+    width: 100%;
+    margin-top: auto;
+    bottom: 0;
+    margin-top: 250px;
 }
 
 .footer-container {
