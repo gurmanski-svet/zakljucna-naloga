@@ -25,7 +25,6 @@ def api_request(url_base):
         except:
             continue
 
-        # 🔥 BONUS: če API vrne error → preskoči key
         if "error" in data:
             continue
 

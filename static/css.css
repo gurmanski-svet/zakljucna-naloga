@@ -15,7 +15,7 @@ h1,h2,h3 {
     color: #FF7043 !important;
 }
 
-/* ==================== HEADER ==================== */
+/* header*/
 
 header {
     background-color: #FF7043;
@@ -41,7 +41,7 @@ header {
     font-weight: bold;
 }
 
-/* ==================== NAVIGATION ==================== */
+/* navigation */
 
 nav ul {
     list-style: none;
@@ -58,7 +58,6 @@ nav ul li a {
     color: white;
     text-decoration: none;
     padding: 1rem;
-    transition: background-color 0.3s;
 }
 
 nav ul li a:hover,
@@ -66,7 +65,7 @@ nav ul li a.active {
     background-color: #BF360C;
 }
 
-/* ==================== DROPDOWN ==================== */
+/* dropdown */
 
 .dropdown-content {
     display: none;
@@ -104,7 +103,7 @@ nav ul li a.active {
     left: auto;
 }
 
-/* ==================== FLASH / STATUS MESSAGES ==================== */
+/* flash messagi */
 
 .uspesna-oddaja,
 .flash-msg {
@@ -120,7 +119,7 @@ nav ul li a.active {
     margin-bottom: 15px;
 }
 
-/* ==================== HERO ==================== */
+/* hero */
 
 .hero {
     height: 70vh;
@@ -148,7 +147,7 @@ h2 {
     color: #FF7043;
 }
 
-/* ==================== BUTTONS ==================== */
+/* gumbi */
 
 .btn {
     background-color: #FF7043;
@@ -163,7 +162,7 @@ h2 {
     background-color: #BF360C;
 }
 
-/* ==================== FEATURES ==================== */
+/* featurji */
 
 .features {
     padding: 50px 20px;
@@ -195,14 +194,13 @@ h2 {
     text-decoration: none;
     color: black;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: 0.3s;
 }
 
 .card:hover {
     transform: translateY(-5px);
 }
 
-/* ==================== CTA ==================== */
+/* cta */
 
 .cta {
     background: url("slike/ozadje_2.png") center/cover no-repeat;
@@ -222,7 +220,7 @@ h2 {
     font-size: large;
 }
 
-/* ==================== 404 ERROR PAGE ==================== */
+/* 404 */
 
 .error-page {
     height: 80vh;
@@ -247,7 +245,7 @@ h2 {
     color: #555;
 }
 
-/* ==================== LOGIN ==================== */
+/* login */
 
 .login-container {
     height: 80vh;
@@ -297,7 +295,6 @@ h2 {
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
-    transition: 0.3s;
 }
 
 .login-btn:hover {
@@ -326,7 +323,7 @@ h2 {
     text-decoration: underline;
 }
 
-/* ==================== FOOTER ==================== */
+/* footer */
 
 .footer {
     background-color: #2E2E2E;
@@ -353,7 +350,7 @@ h2 {
     text-decoration: none;
 }
 
-/* ==================== ADMIN TABLE ==================== */
+/* admin tabela */
 
 .table-container {
     max-width: 900px;
@@ -399,7 +396,6 @@ h2 {
     padding: 8px 12px;
     border-radius: 6px;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 .delete-btn:hover {
@@ -432,10 +428,10 @@ h2 {
     cursor: pointer;
 }
 
-.potrdi-btn { background-color: green; margin-right: 5px; }
+.potrdi-btn { background-color: rgb(0, 196, 0); margin-right: 5px; }
 .zavrni-btn { background-color: red; }
 
-/* ==================== RECIPES ==================== */
+/* recepti */
 
 #recepti-container {
     max-width: 900px;
@@ -492,7 +488,7 @@ h2 {
     word-break: break-word;
 }
 
-/* ==================== SEARCH ==================== */
+/* search */
 
 .iskanje {
     text-align: center;
@@ -513,7 +509,6 @@ h2 {
     border-radius: 8px;
     font-size: 1rem;
     outline: none;
-    transition: 0.2s;
 }
 
 .iskanje input:focus {
@@ -528,7 +523,6 @@ h2 {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 .iskanje button:hover {
@@ -550,12 +544,7 @@ h2 {
     border-color: #FF7043;
 }
 
-/* ==================== SHARED FORM CONTAINERS ==================== */
-/*
- * Shared base styles for:
- * .hladilnik-container, .id-container, .kalkulator-container,
- * .pretvori-container, .info-container, .zdravi-container, .dodaj-container
- */
+/* vsi containerji */
 
 .hladilnik-container,
 .id-container,
@@ -600,7 +589,6 @@ h2 {
     border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 1rem;
-    transition: 0.2s;
 }
 
 .hladilnik-container input:focus,
@@ -626,7 +614,7 @@ h2 {
     border: none;
 }
 
-/* ==================== INDIVIDUAL CONTAINER TWEAKS ==================== */
+/* dodatki za containerje */
 
 .kalkulator-container input {
     margin: 8px 0;
@@ -662,7 +650,7 @@ h2 {
     border: none;
 }
 
-/* ==================== MISC WIDGETS ==================== */
+/* ostalo */
 
 .opozorilo-box {
     margin-top: 20px;
@@ -686,7 +674,7 @@ h2 {
     gap: 10px;
 }
 
-/* ==================== OUTPUT AREAS ==================== */
+/* outputi */
 
 .hladilnik-output,
 .zdravi-output {
@@ -755,210 +743,4 @@ h2 {
 
 .info-output tr:hover {
     background-color: #f9f9f9;
-}
-
-/* ==================== RESPONSIVE ==================== */
-
-@media (max-width: 768px) {
-
-    /* --- Header & Nav --- */
-    header {
-        padding: 0.75rem 1rem;
-    }
-
-    .container {
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
-    }
-
-    .logo {
-        font-size: 1.4rem;
-    }
-
-    nav ul {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    nav ul li {
-        width: 100%;
-    }
-
-    nav ul li a {
-        padding: 12px 16px;
-        width: 100%;
-        text-align: center;
-        font-size: 1rem;
-    }
-
-    /* Dropdowns full-width on mobile */
-    .dropdown-content {
-        position: static;
-        width: 100%;
-        min-width: unset;
-        box-shadow: none;
-        border-top: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .dropdown:last-child .dropdown-content {
-        right: auto;
-        left: auto;
-    }
-
-    /* --- Hero --- */
-    .hero {
-        height: auto;
-        padding: 60px 16px;
-    }
-
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    h2 {
-        font-size: 1.7rem;
-    }
-
-    /* --- Cards --- */
-    .cards {
-        grid-template-columns: 1fr;
-        gap: 14px;
-    }
-
-    .card {
-        padding: 20px;
-    }
-
-    /* --- CTA --- */
-    .cta {
-        padding: 60px 16px;
-    }
-
-    .cta h4 {
-        font-size: 1.7rem;
-    }
-
-    /* --- Login --- */
-    .login-container {
-        height: auto;
-        padding: 30px 16px;
-        align-items: flex-start;
-    }
-
-    .login-box {
-        width: 100%;
-        padding: 30px 20px;
-        min-height: unset;
-        border-radius: 12px;
-    }
-
-    /* --- Admin Table --- */
-    .table-container {
-        padding: 0 10px;
-        overflow-x: auto;  /* horizontal scroll instead of clipping */
-    }
-
-    .user-table {
-        font-size: 0.85rem;
-        min-width: 500px;  /* keeps table readable, enables scroll */
-    }
-
-    .user-table th,
-    .user-table td {
-        padding: 8px 6px;
-    }
-
-    /* --- Recipes --- */
-    .recept-box {
-        flex-direction: column;
-        padding: 12px;
-    }
-
-    .recept-img {
-        width: 100%;
-        height: 180px;
-    }
-
-    .recept-content {
-        padding: 10px 0 0;
-    }
-
-    .recept-meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-    }
-
-    /* --- Search --- */
-    .iskanje {
-        margin: 20px 10px;
-    }
-
-    .iskanje h1 {
-        font-size: 1.6rem;
-    }
-
-    .iskanje input,
-    .iskanje button,
-    #vrsta {
-        width: 100%;
-        margin: 6px 0;
-        margin-left: 0;
-    }
-
-    /* --- Shared Form Containers --- */
-    .hladilnik-container,
-    .id-container,
-    .kalkulator-container,
-    .pretvori-container,
-    .info-container,
-    .zdravi-container,
-    .dodaj-container {
-        width: 100%;
-        margin: 20px 0;
-        padding: 20px 16px;
-        border-radius: 12px;
-        box-shadow: none;
-        border: 1px solid #eee;
-    }
-
-    /* --- Kalkulator grid --- */
-    .kolicine-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* --- Output areas --- */
-    .hladilnik-output,
-    .zdravi-output,
-    .kalkulator-output,
-    .pretvori-output,
-    .info-output {
-        margin: 16px 0;
-        padding: 0 10px;
-    }
-
-    .info-output {
-        overflow-x: auto;
-    }
-
-    .info-output table {
-        min-width: 400px;
-    }
-
-    /* --- Footer --- */
-    .footer {
-        padding: 30px 16px;
-        margin-top: 30px;
-    }
-
-    .footer-container {
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    }
 }

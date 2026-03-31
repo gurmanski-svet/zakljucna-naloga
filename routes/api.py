@@ -5,13 +5,10 @@ import random
 api_bp = Blueprint("api", __name__)
 
 
-#glavne funkcije
 @api_bp.route("/randomRecipe")
 def randomRecipe():
     return render_template("randomRecipe.html")
 
-
-#dost za dones prisel sem na limit za API
 @api_bp.route("/getRandomRecipe")
 def getRandomRecipe():
     sestavine = request.args.get("sestavine")

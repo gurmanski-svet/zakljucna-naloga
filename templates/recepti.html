@@ -7,18 +7,14 @@
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 </head>
 <body>
-<header>
+    <header>
     <div class="container">
-
-        <!-- LOGO + NASLOV -->
         <div class="logo-container">
             <a href="/">
                 <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
             </a>
             <div class="logo">Gurmanski svet</div>
         </div>
-
-        <!-- NAVIGACIJA -->
         <nav>
             <ul>
                 <li><a href="/" class="active">Domov</a></li>
@@ -60,104 +56,101 @@
         </nav>
 
     </div>
-</header>
+    </header>
 
-<section class="features">
+    <section class="features">
 
-    <h1>Predlagani recepti</h1>
-    <p>Preglej, potrdi ali zavrni recepte</p>
+        <h1>Predlagani recepti</h1>
+        <p>Preglej, potrdi ali zavrni recepte</p>
 
-    <a href="/dashboard" class="btn">← Nazaj na dashboard</a>
+        <a href="/dashboard" class="btn">← Nazaj na dashboard</a>
 
-    <div class="table-container">
+        <div class="table-container">
 
-        <table class="user-table">
-            <tr>
-                <th>Naslov</th>
-                <th>Sestavine</th>
-                <th>Navodila</th>
-                <th>Status</th>
-                <th>Akcije</th>
-                <th>Izbriši</th>
-            </tr>
+            <table class="user-table">
+                <tr>
+                    <th>Naslov</th>
+                    <th>Sestavine</th>
+                    <th>Navodila</th>
+                    <th>Status</th>
+                    <th>Akcije</th>
+                    <th>Izbriši</th>
+                </tr>
 
-            {% for recept in recepti %}
-            <tr>
-                <td>{{ recept[1] }}</td>
-                <td>{{ recept[2] }}</td>
-                <td>{{ recept[3] }}</td>
+                {% for recept in recepti %}
+                <tr>
+                    <td>{{ recept[1] }}</td>
+                    <td>{{ recept[2] }}</td>
+                    <td>{{ recept[3] }}</td>
 
-                <!-- STATUS -->
-                <td>
-                    {% if recept[4] == "pending" %}
-                        <span class="status-box pending"></span>
-                    {% elif recept[4] == "approved" %}
-                        <span class="status-box approved"></span>
-                    {% else %}
-                        <span class="status-box rejected"></span>
-                    {% endif %}
-                </td>
+                    <td>
+                        {% if recept[4] == "pending" %}
+                            <span class="status-box pending"></span>
+                        {% elif recept[4] == "approved" %}
+                            <span class="status-box approved"></span>
+                        {% else %}
+                            <span class="status-box rejected"></span>
+                        {% endif %}
+                    </td>
 
-                <!-- AKCIJE -->
-                <td>
-                    <div class="akcije">
-                        <button class="potrdi-btn" data-id="{{ recept[0] }}">✔</button>
-                        <button class="zavrni-btn" data-id="{{ recept[0] }}">✖</button>
-                    </div>
-                </td>
+                    <td>
+                        <div class="akcije">
+                            <button class="potrdi-btn" data-id="{{ recept[0] }}">✔</button>
+                            <button class="zavrni-btn" data-id="{{ recept[0] }}">✖</button>
+                        </div>
+                    </td>
 
-                <!-- DELETE -->
-                <td>
-                    <form action="/izbrisi_recept/{{ recept[0] }}" method="POST">
-                        <button type="submit" class="delete-btn">Izbriši</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+                    <td>
+                        <form action="/izbrisi_recept/{{ recept[0] }}" method="POST">
+                            <button type="submit" class="delete-btn">Izbriši</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
 
-    </div>
+        </div>
 
-</section>
+    </section>
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<script>
-$(".potrdi-btn").click(function() {
-    let id = $(this).data("id");
-    potrdi(id);
-});
-
-$(".zavrni-btn").click(function() {
-    let id = $(this).data("id");
-    zavrni(id);
-});
-
-// 👉 DODAJ TO:
-function potrdi(id) {
-
-    $.ajax({
-        url: "/potrdi/" + id,
-        method: "POST",
-        success: function() {
-            location.reload(); // osveži stran
-        }
+    <script>
+    $(".potrdi-btn").click(function() {
+        let id = $(this).data("id");
+        potrdi(id);
     });
-}
 
-function zavrni(id) {
-
-    $.ajax({
-        url: "/zavrni/" + id,
-        method: "POST",
-        success: function() {
-            location.reload();
-        }
+    $(".zavrni-btn").click(function() {
+        let id = $(this).data("id");
+        zavrni(id);
     });
-}
-</script>
+
+
+    function potrdi(id) {
+
+        $.ajax({
+            url: "/potrdi/" + id,
+            method: "POST",
+            success: function() {
+                location.reload();
+            }
+        });
+    }
+
+    function zavrni(id) {
+
+        $.ajax({
+            url: "/zavrni/" + id,
+            method: "POST",
+            success: function() {
+                location.reload();
+            }
+        });
+    }
+    </script>
 
 </body>
 </html>

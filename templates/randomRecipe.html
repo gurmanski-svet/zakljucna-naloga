@@ -8,152 +8,149 @@
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 </head>
 <body>
+    <header>
+        <div class="container">
 
-<header>
-    <div class="container">
+            <div class="logo-container">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
+                </a>
+                <div class="logo">Gurmanski svet</div>
+            </div>
 
-        <div class="logo-container">
-            <a href="/">
-                <img src="{{ url_for('static', filename='slike/ikona.png') }}" height="50">
-            </a>
-            <div class="logo">Gurmanski svet</div>
+            <nav>
+                <ul>
+                    <li><a href="/" class="active">Domov</a></li>
+
+                    <li class="dropdown">
+                        <a href="#">Recepti ▾</a>
+                        <div class="dropdown-content">
+                            <a href="/randomRecipe">Naključni recept</a>
+                            <a href="/hladilnik">Po sestavinah</a>
+                            <a href="/predlagani_recepti">Predlagani recepti</a>
+                            <a href="/idSearch">Iskanje po ID</a>
+                        </div>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#">Orodja ▾</a>
+                        <div class="dropdown-content">
+                            <a href="/kalkulator">Kalkulator</a>
+                            <a href="/pretvori">Pretvornik enot</a>
+                            <a href="/info">Info o sestavinah</a>
+                        </div>
+                    </li>
+
+                    <li><a href="/zdravi">Zdravi obrok</a></li>
+                    <li><a href="/tecaji">Tečaji</a></li>
+                    <li><a href="/dodajRecept">Dodaj recept</a></li>
+
+    {% if username %}
+    <li class="dropdown">
+        <a href="#">Hej {{ username }} ▾</a>
+        <div class="dropdown-content">
+            <a href="/logout">Odjava</a>
         </div>
+    </li>
+    {% else %}
+    <li><a href="/login">Prijava</a></li>
+    {% endif %}
+                </ul>
+            </nav>
 
-        <nav>
-            <ul>
-                <li><a href="/" class="active">Domov</a></li>
+        </div>
+    </header>
 
-                <li class="dropdown">
-                    <a href="#">Recepti ▾</a>
-                    <div class="dropdown-content">
-                        <a href="/randomRecipe">Naključni recept</a>
-                        <a href="/hladilnik">Po sestavinah</a>
-                        <a href="/predlagani_recepti">Predlagani recepti</a>
-                        <a href="/idSearch">Iskanje po ID</a>
-                    </div>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#">Orodja ▾</a>
-                    <div class="dropdown-content">
-                        <a href="/kalkulator">Kalkulator</a>
-                        <a href="/pretvori">Pretvornik enot</a>
-                        <a href="/info">Info o sestavinah</a>
-                    </div>
-                </li>
-
-                <li><a href="/zdravi">Zdravi obrok</a></li>
-                <li><a href="/tecaji">Tečaji</a></li>
-                <li><a href="/dodajRecept">Dodaj recept</a></li>
-
-{% if username %}
-<li class="dropdown">
-    <a href="#">Hej {{ username }} ▾</a>
-    <div class="dropdown-content">
-        <a href="/logout">Odjava</a>
-    </div>
-</li>
-{% else %}
-<li><a href="/login">Prijava</a></li>
-{% endif %}
-            </ul>
-        </nav>
-
-    </div>
-</header>
-
-<!-- 🔥 ISKANJE -->
-<section class="iskanje">
-    <h1>Poišči recept</h1>
-
-    <input type="text" id="sestavine" placeholder="Išči po receptih po ang.">
+    <section class="iskanje">
+        <h1>Poišči recept</h1>
     
-    <select id="vrsta">
-        <option value="">Izberi kuhinjo</option>
-        <option value="African">African</option>
-        <option value="Asian">Asian</option>
-        <option value="American">American</option>
-        <option value="British">British</option>
-        <option value="Cajun">Cajun</option>
-        <option value="Caribbean">Caribbean</option>
-        <option value="Chinese">Chinese</option>
-        <option value="Eastern European">Eastern European</option>
-        <option value="European">European</option>
-        <option value="French">French</option>
-        <option value="German">German</option>
-        <option value="Greek">Greek</option>
-        <option value="Indian">Indian</option>
-        <option value="Irish">Irish</option>
-        <option value="Italian">Italian</option>
-        <option value="Japanese">Japanese</option>
-        <option value="Jewish">Jewish</option>
-        <option value="Korean">Korean</option>
-        <option value="Latin American">Latin American</option>
-        <option value="Mediterranean">Mediterranean</option>
-        <option value="Mexican">Mexican</option>
-        <option value="Middle Eastern">Middle Eastern</option>
-        <option value="Nordic">Nordic</option>
-        <option value="Southern">Southern</option>
-        <option value="Spanish">Spanish</option>
-        <option value="Thai">Thai</option>
-        <option value="Vietnamese">Vietnamese</option>
-    </select>
-
-    <button class="btn" onclick="getRandomRecipe()">Najdi recept</button>
-</section>
-
-<!-- 🔥 OUTPUT -->
-<div id="recepti-container">
-
-    <div id="output0" style="color: red; text-align:center;"></div>
-
-    <div class="recept-box">
-        <div id="output2"></div>
-
-        <div class="recept-content" style="border-left: 2px solid #FF7043">
-            <h2 id="output1"></h2>
-
-            <div class="recept-section">
-                <h3>Ingredients</h3>
-                <p id="output3"></p>
-            </div>
-
-            <div class="recept-section">
-                <h3>Instructions</h3>
-                <p id="output4"></p>
+        <input type="text" id="sestavine" placeholder="Išči po receptih po ang.">
+        
+        <select id="vrsta">
+            <option value="">Izberi kuhinjo</option>
+            <option value="African">African</option>
+            <option value="Asian">Asian</option>
+            <option value="American">American</option>
+            <option value="British">British</option>
+            <option value="Cajun">Cajun</option>
+            <option value="Caribbean">Caribbean</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Eastern European">Eastern European</option>
+            <option value="European">European</option>
+            <option value="French">French</option>
+            <option value="German">German</option>
+            <option value="Greek">Greek</option>
+            <option value="Indian">Indian</option>
+            <option value="Irish">Irish</option>
+            <option value="Italian">Italian</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Jewish">Jewish</option>
+            <option value="Korean">Korean</option>
+            <option value="Latin American">Latin American</option>
+            <option value="Mediterranean">Mediterranean</option>
+            <option value="Mexican">Mexican</option>
+            <option value="Middle Eastern">Middle Eastern</option>
+            <option value="Nordic">Nordic</option>
+            <option value="Southern">Southern</option>
+            <option value="Spanish">Spanish</option>
+            <option value="Thai">Thai</option>
+            <option value="Vietnamese">Vietnamese</option>
+        </select>
+    
+        <button class="btn" onclick="getRandomRecipe()">Najdi recept</button>
+    </section>
+    
+    <div id="recepti-container">
+    
+        <div id="output0" style="color: red; text-align:center;"></div>
+    
+        <div class="recept-box">
+            <div id="output2"></div>
+        
+            <div class="recept-content" style="border-left: 2px solid #FF7043">
+                <h2 id="output1"></h2>
+            
+                <div class="recept-section">
+                    <h3>Ingredients</h3>
+                    <p id="output3"></p>
+                </div>
+            
+                <div class="recept-section">
+                    <h3>Instructions</h3>
+                    <p id="output4"></p>
+                </div>
             </div>
         </div>
+    
     </div>
-
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-<script>
-function getRandomRecipe() {
-
-    $.ajax({
-        url: "/getRandomRecipe",
-        data: {
-            sestavine: sestavine.value,
-            vrsta: vrsta.value
-        },
-        success: function (result) {
-
-            if (result.message) {
-                output0.innerHTML = result.message;
-            } else {
-                output0.innerHTML = "";
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <script>
+    function getRandomRecipe() {
+    
+        $.ajax({
+            url: "/getRandomRecipe",
+            data: {
+                sestavine: sestavine.value,
+                vrsta: vrsta.value
+            },
+            success: function (result) {
+            
+                if (result.message) {
+                    output0.innerHTML = result.message;
+                } else {
+                    output0.innerHTML = "";
+                }
+            
+                output1.innerHTML = result.ime || "";
+                output2.innerHTML = result.slika || "";
+                output3.innerHTML = result.ingredients || "";
+                output4.innerHTML = result.navodila || "";
             }
-
-            output1.innerHTML = result.ime || "";
-            output2.innerHTML = result.slika || "";
-            output3.innerHTML = result.ingredients || "";
-            output4.innerHTML = result.navodila || "";
-        }
-    });
-}
-</script>
+        });
+    }
+    </script>
 
 </body>
 </html>
