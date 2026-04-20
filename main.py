@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 load_dotenv()
 from flask import Flask, render_template, request, redirect, session
 import os
-from supabase import create_client, Client
 from routes.auth import auth_bp
 from routes.api import api_bp
 from routes.recepti import recepti_bp

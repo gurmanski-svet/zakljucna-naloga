@@ -9,5 +9,6 @@ key: str = os.getenv("SUPABASE_KEY")
 
 if not url or not key:
     raise Exception("ni tistih env spremenljivk")
-
+print("URL:", os.getenv("SUPABASE_URL"))
+print("KEY:", os.getenv("SUPABASE_KEY"))
 supabase: Client = create_client(url, key)
