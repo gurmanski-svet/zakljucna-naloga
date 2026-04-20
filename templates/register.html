@@ -61,7 +61,6 @@
     </div>
 </header>
 
-<!-- FLASH -->
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
@@ -75,7 +74,6 @@
     <div class="login-box">
         <h1>Registracija</h1>
     
-        <!-- ✅ NORMALEN FORM -->
         <form action="/register" method="POST">
             <input type="text" name="username" placeholder="Uporabniško ime" required>
             <input type="email" name="mail" placeholder="E-mail" required>

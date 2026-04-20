@@ -4,7 +4,8 @@ from supabase import create_client, Client
 from routes.auth import auth_bp
 from routes.api import api_bp
 from routes.recepti import recepti_bp
-
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "fallback_key")
@@ -21,8 +22,8 @@ url: str = os.getenv("SUPABASE_URL")
 key: str = os.getenv("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
-print("URL:", os.getenv("SUPABASE_URL"))
-print("KEY:", os.getenv("SUPABASE_KEY"))
+print("URL:", url)
+print("KEY:", key)
 
 @app.errorhandler(404)
 def page_not_found(e):
