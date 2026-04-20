@@ -21,6 +21,9 @@ url: str = os.getenv("SUPABASE_URL")
 key: str = os.getenv("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
+print("URL:", os.getenv("SUPABASE_URL"))
+print("KEY:", os.getenv("SUPABASE_KEY"))
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
