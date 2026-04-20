@@ -7,7 +7,8 @@
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 </head>
 <body>
-    <header>
+
+<header>
     <div class="container">
         <div class="logo-container">
             <a href="/">
@@ -15,6 +16,7 @@
             </a>
             <div class="logo">Gurmanski svet</div>
         </div>
+
         <nav>
             <ul>
                 <li><a href="/" class="active">Domov</a></li>
@@ -42,82 +44,81 @@
                 <li><a href="/tecaji">Tečaji</a></li>
                 <li><a href="/dodajRecept">Dodaj recept</a></li>
 
-    {% if username %}
-    <li class="dropdown">
-        <a href="#">Hej {{ username }} ▾</a>
-        <div class="dropdown-content">
-            <a href="/logout">Odjava</a>
-        </div>
-    </li>
-    {% else %}
-    <li><a href="/login">Prijava</a></li>
-    {% endif %}
-                </ul>
-            </nav>
-        
-        </div>
-    </header>
+                {% if username %}
+                <li class="dropdown">
+                    <a href="#">Hej {{ username }} ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/logout">Odjava</a>
+                    </div>
+                </li>
+                {% else %}
+                <li><a href="/login">Prijava</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
 
-    <section class="features">
+<section class="features">
 
-        <h1>Predlagani recepti</h1>
-        <p>Preglej, potrdi ali zavrni recepte</p>
+    <h1>Predlagani recepti</h1>
+    <p>Preglej, potrdi ali zavrni recepte</p>
 
-        <a href="/dashboard" class="btn">← Nazaj na dashboard</a>
+    <a href="/dashboard" class="btn">← Nazaj na dashboard</a>
 
-        <div class="table-container">
+    <div class="table-container">
 
-            <table class="user-table">
-                <tr>
-                    <th>Naslov</th>
-                    <th>Sestavine</th>
-                    <th>Navodila</th>
-                    <th>Status</th>
-                    <th>Akcije</th>
-                    <th>Izbriši</th>
-                </tr>
+        <table class="user-table">
+            <tr>
+                <th>Naslov</th>
+                <th>Sestavine</th>
+                <th>Navodila</th>
+                <th>Status</th>
+                <th>Akcije</th>
+                <th>Izbriši</th>
+            </tr>
 
-                {% for recept in recepti %}
-                <tr>
-                    <td>{{ recept[1] }}</td>
-                    <td>{{ recept[2] }}</td>
-                    <td>{{ recept[3] }}</td>
+            {% for recept in recepti %}
+            <tr>
+                <td>{{ recept.naslov }}</td>
+                <td>{{ recept.sestavine }}</td>
+                <td>{{ recept.navodila }}</td>
 
-                    <td>
-                        {% if recept[4] == "pending" %}
-                            <span class="status-box pending"></span>
-                        {% elif recept[4] == "approved" %}
-                            <span class="status-box approved"></span>
-                        {% else %}
-                            <span class="status-box rejected"></span>
-                        {% endif %}
-                    </td>
+                <td>
+                    {% if recept.status == "pending" %}
+                        <span class="status-box pending"></span>
+                    {% elif recept.status == "approved" %}
+                        <span class="status-box approved"></span>
+                    {% else %}
+                        <span class="status-box rejected"></span>
+                    {% endif %}
+                </td>
 
-                    <td>
-                        <div class="akcije">
-                            <button class="potrdi-btn" data-id="{{ recept[0] }}">✔</button>
-                            <button class="zavrni-btn" data-id="{{ recept[0] }}">✖</button>
-                        </div>
-                    </td>
+                <td>
+                    <div class="akcije">
+                        <button class="potrdi-btn" data-id="{{ recept.id }}">✔</button>
+                        <button class="zavrni-btn" data-id="{{ recept.id }}">✖</button>
+                    </div>
+                </td>
 
-                    <td>
-                        <form action="/izbrisi_recept/{{ recept[0] }}" method="POST">
-                            <button type="submit" class="delete-btn">Izbriši</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
+                <td>
+                    <form action="/izbrisi_recept/{{ recept.id }}" method="POST">
+                        <button type="submit" class="delete-btn">Izbriši</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
 
-        </div>
+    </div>
 
-    </section>
+</section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<script>
+$(document).ready(function() {
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-    <script>
     $(".potrdi-btn").click(function() {
         let id = $(this).data("id");
         potrdi(id);
@@ -128,37 +129,37 @@
         zavrni(id);
     });
 
+});
 
-    function potrdi(id) {
+function potrdi(id) {
+    $.ajax({
+        url: "/potrdi/" + id,
+        method: "POST",
+        success: function() {
+            location.reload();
+        }
+    });
+}
 
-        $.ajax({
-            url: "/potrdi/" + id,
-            method: "POST",
-            success: function() {
-                location.reload();
-            }
-        });
-    }
+function zavrni(id) {
+    $.ajax({
+        url: "/zavrni/" + id,
+        method: "POST",
+        success: function() {
+            location.reload();
+        }
+    });
+}
+</script>
 
-    function zavrni(id) {
+<footer class="footer">
+    <div class="footer-container">
 
-        $.ajax({
-            url: "/zavrni/" + id,
-            method: "POST",
-            success: function() {
-                location.reload();
-            }
-        });
-    }
-    </script>
-    <footer class="footer">
-        <div class="footer-container">
-
-            <div class="footer-section">
-                <h3>Gurmanski svet</h3>
-                <p>Tvoja destinacija za najboljše recepte</p>
-            </div>
-            
+        <div class="footer-section">
+            <h3>Gurmanski svet</h3>
+            <p>Tvoja destinacija za najboljše recepte</p>
+        </div>
+        
         <div class="footer-section">
             <h4>Kontakt</h4>
             <p>Email: info@gurmanskisvet.si</p>
@@ -168,17 +169,17 @@
                 Pojdi si kaj skuhat ;)
             </p>
         </div>
-            <div class="footer-section">
-                <h4>Navigacija</h4>
-                <a href="/">Domov</a>
-                <a href="/randomRecipe">Recepti</a>
-                <a href="/kalkulator">Orodja</a>
-                <a href="/tecaji">Tečaji</a>
-            </div>
 
-
-
+        <div class="footer-section">
+            <h4>Navigacija</h4>
+            <a href="/">Domov</a>
+            <a href="/randomRecipe">Recepti</a>
+            <a href="/kalkulator">Orodja</a>
+            <a href="/tecaji">Tečaji</a>
         </div>
-    </footer>
+
+    </div>
+</footer>
+
 </body>
 </html>

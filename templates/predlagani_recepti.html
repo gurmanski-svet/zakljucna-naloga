@@ -70,35 +70,34 @@
     </div>
     <div id="recepti-container">
 
-    {% for recept in recepti %}
-    <div class="recept-box">
-    
-        {% if recept[3] %}
-            <img class="recept-img" src="{{ url_for('static', filename='uploads/' + recept[3]) }}">
-        {% endif %}
+{% for recept in recepti %}
+<div class="recept-box">
+
+    {% if recept.slika %}
+        <img class="recept-img" src="{{ recept.slika }}">
+    {% endif %}
 
     <div class="recept-content">
 
-        <h2>{{ recept[0] }}</h2>
+        <h2>{{ recept.naslov }}</h2>
 
         <div class="recept-meta">
-            <span>Čas priprave: {{ recept[5] }} min</span>
-            <span>Št. oseb: {{ recept[6] }} oseb</span>
-            <span>Težavnost: {{ recept[4] }}</span>
+            <span>Čas priprave: {{ recept.cas_priprave }} min</span>
+            <span>Št. oseb: {{ recept.osebe }} oseb</span>
+            <span>Težavnost: {{ recept.tezavnost }}</span>
         </div>
 
         <div class="recept-section">
             <h3>Sestavine</h3>
-            <p>{{ recept[1] }}</p>
+            <p>{{ recept.sestavine }}</p>
         </div>
 
         <div class="recept-section">
             <h3>Navodila</h3>
-            <p>{{ recept[2] }}</p>
+            <p>{{ recept.navodila }}</p>
         </div>
 
     </div>
-
 </div>
 {% endfor %}
 
@@ -123,26 +122,26 @@
                 html += `
                 <div class="recept-box">
                 
-                    ${recept[3] ? `<img class="recept-img" src="/static/uploads/${recept[3]}">` : ""}
+                    ${recept.slika ? `<img class="recept-img" src="${recept.slika}">` : ""}
                 
                     <div class="recept-content">
                     
-                        <h2>${recept[0]}</h2>
+                        <h2>${recept.naslov}</h2>
                     
                         <div class="recept-meta">
-                            <span>Čas priprave: ${recept[5]} min</span>
-                            <span>Št. oseb:${recept[6]} oseb</span>
-                            <span>Težavnost:${recept[4]}</span>
+                            <span>Čas priprave: ${recept.cas_priprave} min</span>
+                            <span>Št. oseb:${recept.osebe} oseb</span>
+                            <span>Težavnost:${recept.tezavnost}</span>
                         </div>
                     
                         <div class="recept-section">
                             <h3>Sestavine</h3>
-                            <p>${recept[1]}</p>
+                            <p>${ recept.sestavine}</p>
                         </div>
                     
                         <div class="recept-section">
                             <h3>Navodila</h3>
-                            <p>${recept[2]}</p>
+                            <p>${recept.navodila}</p>
                         </div>
                     
                     </div>

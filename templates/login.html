@@ -8,7 +8,8 @@
     <link rel="icon" href="{{ url_for('static', filename='slike/ikona.png') }}">
 </head>
 <body>
-    <header>
+
+<header>
     <div class="container">
         <div class="logo-container">
             <a href="/">
@@ -44,69 +45,58 @@
                 <li><a href="/tecaji">Tečaji</a></li>
                 <li><a href="/dodajRecept">Dodaj recept</a></li>
 
-{% if username %}
-<li class="dropdown">
-    <a href="#">Hej {{ username }} ▾</a>
-    <div class="dropdown-content">
-        <a href="/logout">Odjava</a>
-    </div>
-</li>
-{% else %}
-<li><a href="/login">Prijava</a></li>
-{% endif %}
+                {% if username %}
+                <li class="dropdown">
+                    <a href="#">Hej {{ username }} ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/logout">Odjava</a>
+                    </div>
+                </li>
+                {% else %}
+                <li><a href="/login">Prijava</a></li>
+                {% endif %}
             </ul>
         </nav>
-
     </div>
-    </header>
-    <section class="login-container">
+</header>
 
-        <div class="login-box">
-            <h1>Prijava</h1>
+<!-- FLASH -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="flash-msg-red">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 
-            <form action="/login" method="POST">
-                <input type="text" id="username" placeholder="Uporabniško ime" required>
-                <input type="password" id="geslo" placeholder="Geslo" required>
-            </form>
+<section class="login-container">
 
-            <button onclick="login()" class="login-btn">Prijavi se</button>
+    <div class="login-box">
+        <h1>Prijava</h1>
 
-            <div id="output"></div>
+        <!-- ✅ NORMALEN FORM -->
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Uporabniško ime" required>
+            <input type="password" name="geslo" placeholder="Geslo" required>
 
-            <p class="register-link">
-                Še nimate računa? <a href="/register">Registrirajte se</a>
-            </p>
+            <button type="submit" class="login-btn">Prijavi se</button>
+        </form>
+
+        <p class="register-link">
+            Še nimate računa? <a href="/register">Registrirajte se</a>
+        </p>
+    </div>
+
+</section>
+
+<footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-section">
+            <h3>Gurmanski svet</h3>
+            <p>Tvoja destinacija za najboljše recepte</p>
         </div>
-
-    </section>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        function login() {
-            var output = document.getElementById("output");
-
-            $.ajax({
-                url: "/login",  
-                method: "POST",  
-                data: {
-                    username: username.value,
-                    geslo: geslo.value
-                },
-                success: function (result) {
-                    output.innerHTML = result.message + " <a href='" + result.povezava + "'>Kliknite tukaj</a>";
-                }
-            });
-        }
-    </script>
-
-        <footer class="footer">
-        <div class="footer-container">
-
-            <div class="footer-section">
-                <h3>Gurmanski svet</h3>
-                <p>Tvoja destinacija za najboljše recepte</p>
-            </div>
-            
+        
         <div class="footer-section">
             <h4>Kontakt</h4>
             <p>Email: info@gurmanskisvet.si</p>
@@ -116,17 +106,17 @@
                 Pojdi si kaj skuhat ;)
             </p>
         </div>
-            <div class="footer-section">
-                <h4>Navigacija</h4>
-                <a href="/">Domov</a>
-                <a href="/randomRecipe">Recepti</a>
-                <a href="/kalkulator">Orodja</a>
-                <a href="/tecaji">Tečaji</a>
-            </div>
 
-
-
+        <div class="footer-section">
+            <h4>Navigacija</h4>
+            <a href="/">Domov</a>
+            <a href="/randomRecipe">Recepti</a>
+            <a href="/kalkulator">Orodja</a>
+            <a href="/tecaji">Tečaji</a>
         </div>
-    </footer>
+
+    </div>
+</footer>
+
 </body>
 </html>

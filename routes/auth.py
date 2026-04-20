@@ -1,8 +1,13 @@
-from flask import Blueprint, render_template, request, jsonify, session, redirect
-import sqlite3
+from flask import Blueprint, render_template, request, session, redirect, flash
 import bcrypt
+from supabase import create_client, Client
+
+url: str = "https://vraixcshjsgfobltfvpu.supabase.co"
+key: str = "sb_publishable_i4bIososUGqTVjhVGjZu_Q_x7UkMYYw"
+supabase: Client = create_client(url, key)
 
 auth_bp = Blueprint("auth", __name__)
+
 
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
@@ -11,37 +16,47 @@ def register():
         mail = request.form.get("mail")
         geslo = request.form.get("geslo")
 
-        geslo_utf = geslo.encode('utf-8')
-        hash_geslo = bcrypt.hashpw(geslo_utf, bcrypt.gensalt()).decode('utf-8')
+        if not username or not mail or not geslo:
+            flash("Izpolni vsa polja.")
+            return redirect("/register")
 
+        if "@" not in mail or "." not in mail:
+            flash("Vnesi veljaven email.")
+            return redirect("/register")
 
-        conn = sqlite3.connect('users.db')
-        c = conn.cursor()
+        user_check = supabase.table("users") \
+            .select("username") \
+            .eq("username", username) \
+            .execute()
 
-        if username == "" or mail == "" or geslo == "":
-            return jsonify({"message": "Izpolni vsa polja", "povezava": "/register"})
+        if user_check.data:
+            flash("Uporabniško ime že obstaja.")
+            return redirect("/register")
 
-        if "@" not in mail and "." not in mail:
-            return jsonify({"message": "Vnesi veljaven mail", "povezava": "/register"})
+        mail_check = supabase.table("users") \
+            .select("mail") \
+            .eq("mail", mail) \
+            .execute()
 
-        c.execute("SELECT username FROM users WHERE username = ?", (username,))
-        if c.fetchone():
-            conn.close()
-            return jsonify({"message": "Uporabnisko ime ze obstaja", "povezava": "/register"})
+        if mail_check.data:
+            flash("Email že obstaja.")
+            return redirect("/register")
 
-        c.execute("SELECT mail FROM users WHERE mail = ?", (mail,))
-        if c.fetchone():
-            conn.close()
-            return jsonify({"message": "Registracija uspesna!", "povezava": "/register"})
+        hash_geslo = bcrypt.hashpw(
+            geslo.encode("utf-8"),
+            bcrypt.gensalt()
+        ).decode("utf-8")
 
-        c.execute("INSERT INTO users (username, mail, geslo) VALUES (?, ?, ?)", (username, mail, hash_geslo))
-        conn.commit()
-        conn.close()
-        return jsonify({"message": "Registracija uspesna!", "povezava": "/login"})
-        
-    
-    else:
-        return render_template("register.html")
+        supabase.table("users").insert({
+            "username": username,
+            "mail": mail,
+            "geslo": hash_geslo
+        }).execute()
+
+        flash("Registracija uspešna! Sedaj se lahko prijaviš.")
+        return redirect("/login")
+
+    return render_template("register.html")
 
 
 @auth_bp.route("/login", methods=["GET", "POST"])
@@ -50,33 +65,34 @@ def login():
         username = request.form.get("username")
         geslo = request.form.get("geslo")
 
-        geslo_utf = geslo.encode('utf-8')
+        response = supabase.table("users") \
+            .select("username, geslo") \
+            .eq("username", username) \
+            .execute()
 
-        baza = sqlite3.connect('users.db')
-        c = baza.cursor()
-        c.execute("SELECT username, geslo FROM users WHERE username = ?", (username,))
-        user = c.fetchone()
-        baza.close()
+        if not response.data:
+            flash("Napačno uporabniško ime ali geslo.")
+            return redirect("/login")
 
-        if user is not None:
-            db_username = user[0]
-            db_hash = user[1] 
+        user = response.data[0]
+        db_hash = user["geslo"]
 
-            if bcrypt.checkpw(geslo_utf, db_hash.encode('utf-8')):  
+        if not bcrypt.checkpw(
+            geslo.encode("utf-8"),
+            db_hash.encode("utf-8")
+        ):
+            flash("Napačno uporabniško ime ali geslo.")
+            return redirect("/login")
 
-                session["username"] = db_username
-                return jsonify({"message": "Prijava uspešna!", "povezava": "/"})
-            else:
-                return jsonify({"message": "Napačno geslo.", "povezava": "/login"})
-        else:
-            return jsonify({"message": "Napačno uporabniško ime ali geslo.", "povezava": "/login"})
+        session["username"] = user["username"]
+        flash("Uspešno si se prijavil.")
+        return redirect("/")
 
+    return render_template("login.html")
 
-
-    else:
-        return render_template("login.html")
 
 @auth_bp.route("/logout")
 def logout():
     session.clear()
+    flash("Odjavljen si.")
     return redirect("/login")

@@ -115,6 +115,14 @@ nav ul li a.active {
     font-weight: bold;
 }
 
+.flash-msg-red {
+    background-color: #650911;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+}
+
 .flash-msg {
     padding: 10px;
     border-radius: 8px;
@@ -200,6 +208,7 @@ h2 {
 
 .card:hover {
     transform: translateY(-5px);
+    transition: 0.3s;
 }
 
 /* cta */

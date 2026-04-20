@@ -1,4 +1,3 @@
-from flask import Blueprint, render_template, request, jsonify, session, redirect
 import requests
 
 API_KEYS = [
@@ -20,24 +19,6 @@ def api_request(url_base):
         url = f"{url_base}&apiKey={key}"
         response = requests.get(url)
         
-        try:
-            data = response.json()
-        except:
-            continue
-
-        if "error" in data:
-            continue
-
-        if response.status_code == 200 and "status" not in data:
-            return data
-
-    return {"error": "Vsi API ključi so porabljeni"}
-
-def api_request(url_base):
-    for key in API_KEYS:
-        url = f"{url_base}&apiKey={key}"
-        response = requests.get(url)
-
         try:
             data = response.json()
         except:

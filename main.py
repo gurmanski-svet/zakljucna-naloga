@@ -1,12 +1,9 @@
-# za pregled po bazi v terminalu: sqlite3 users.db ---> potem pa SELECT * FROM users;
-from flask import Flask, render_template, jsonify, request, redirect, session
-import sqlite3
+from flask import Flask, render_template, request, redirect, session
 import os
-
+from supabase import create_client, Client
 from routes.auth import auth_bp
 from routes.api import api_bp
 from routes.recepti import recepti_bp
-
 
 
 app = Flask(__name__)
@@ -17,40 +14,10 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(api_bp)
 app.register_blueprint(recepti_bp)
 
-
-
-
-conn = sqlite3.connect('users.db')
-c = conn.cursor()
-
-c.execute('''CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    mail TEXT,
-    geslo TEXT
-)''')
-
-conn.commit()
-conn.close()
-
-
-conn = sqlite3.connect('recepti.db')
-c = conn.cursor()
-
-c.execute('''CREATE TABLE IF NOT EXISTS recepti (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    naslov TEXT,
-    slika TEXT,
-    sestavine TEXT,
-    navodila TEXT,
-    tezavnost TEXT,
-    cas_priprave INTEGER,
-    osebe INTEGER
-)''')
-
-
-conn.commit()
-conn.close()
+#supabase povezava
+url: str = "https://vraixcshjsgfobltfvpu.supabase.co"
+key: str = "sb_publishable_i4bIososUGqTVjhVGjZu_Q_x7UkMYYw"
+supabase: Client = create_client(url, key)
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -74,11 +41,8 @@ def uporabniki():
     if "username" in session:
         username = session["username"]
         if  username == "admin":
-            conn = sqlite3.connect('users.db')
-            c = conn.cursor()
-            c.execute("SELECT id, username, mail FROM users")
-            users = c.fetchall()
-            conn.close()
+            response = supabase.table("users").select("id, username, mail").execute()
+            users = response.data
 
             return render_template("uporabniki.html", users=users)
         
@@ -91,20 +55,16 @@ def uporabniki():
 
 
 
-@app.route("/izbrisi/<id>", methods=["POST"])
+@app.route("/izbrisi/<int:id>", methods=["POST"])
 def izbrisi(id):
-    if "username" in session:
-        username = session["username"]
-        if username == "admin":
-            conn = sqlite3.connect('users.db')
-            c = conn.cursor()
-            c.execute("DELETE FROM users WHERE id = ?", (id,))
-            conn.commit()
-            conn.close()
-            return redirect("/uporabniki")
-
-    else:
+    if "username" not in session:
         return redirect("/")
+
+    if session["username"] != "admin":
+        return redirect("/")
+
+    supabase.table("users").delete().eq("id", id).execute()
+    return redirect("/uporabniki")
 
 
 @app.context_processor

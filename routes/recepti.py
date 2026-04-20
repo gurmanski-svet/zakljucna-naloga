@@ -1,20 +1,24 @@
 from flask import Blueprint, render_template, request, redirect, session, jsonify, flash
-import sqlite3
-import os
 from werkzeug.utils import secure_filename
+from supabase import create_client, Client
 
 recepti_bp = Blueprint("recepti", __name__)
+
+
+url: str = "https://vraixcshjsgfobltfvpu.supabase.co"
+key: str = "sb_publishable_i4bIososUGqTVjhVGjZu_Q_x7UkMYYw"
+supabase: Client = create_client(url, key)
 
 @recepti_bp.route("/recepti")
 def recepti():
     if "username" in session:
         username = session["username"]
         if  username == "admin":
-            conn = sqlite3.connect('recepti.db')
-            c = conn.cursor()
-            c.execute("SELECT id, naslov, sestavine, navodila, status FROM recepti")
-            recept = c.fetchall()
-            conn.close()
+            response = supabase.table("recepti") \
+                .select("id, naslov, sestavine, navodila, status") \
+                .execute()
+
+            recept = response.data
             return render_template("recepti.html", recepti=recept)
         
         else:
@@ -28,10 +32,7 @@ def recepti():
 @recepti_bp.route("/izbrisi_recept/<int:id>", methods=["POST"])
 def izbrisi_recept(id):
     if "username" in session and session["username"] == "admin":
-        with sqlite3.connect('recepti.db') as conn:
-            c = conn.cursor()
-            c.execute("DELETE FROM recepti WHERE id = ?", (id,))
-            conn.commit()
+        supabase.table("recepti").delete().eq("id", id).execute()
         return redirect("/recepti")  
     else:
         return redirect("/login")
@@ -41,6 +42,9 @@ def izbrisi_recept(id):
 
 @recepti_bp.route("/getDodajRecept", methods=["POST"])
 def getDodajRecept():
+    if "username" not in session:
+        flash("Za dodajanje recepta se prijavi.")
+        return redirect("/login")
 
     naslov = request.form.get("naslov")
     sestavine = request.form.get("sestavine")
@@ -48,34 +52,29 @@ def getDodajRecept():
     tezavnost = request.form.get("tezavnost")
     cas_priprave = request.form.get("casPriprave")
     osebe = request.form.get("osebe")
-    izpis_sestavin = ""
-    seznam_sestavin = []
 
-    seznam_sestavin = sestavine.split("\n")
-    for sestavina in seznam_sestavin:
-        izpis_sestavin += sestavina + ", "
-    
+    izpis_sestavin = "<br>".join(sestavine.split("\n"))
 
     file = request.files.get("slika")
-
-    filename = None
+    image_url = None
 
     if file and file.filename != "":
         filename = secure_filename(file.filename)
-        filepath = os.path.join("static/uploads", filename)
-        file.save(filepath)
 
-    conn = sqlite3.connect('recepti.db') 
-    c = conn.cursor()
-    
-    c.execute('''
-        INSERT INTO recepti 
-        (naslov, slika, sestavine, navodila, tezavnost, cas_priprave, osebe)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    ''', (naslov, filename, izpis_sestavin, navodila, tezavnost, cas_priprave, osebe))
+        supabase.storage.from_("slike").upload(filename, file)
 
-    conn.commit()
-    conn.close()
+        image_url = supabase.storage.from_("slike").get_public_url(filename)
+
+    supabase.table("recepti").insert({
+        "naslov": naslov,
+        "slika": image_url,
+        "sestavine": izpis_sestavin,
+        "navodila": navodila,
+        "tezavnost": tezavnost,
+        "cas_priprave": cas_priprave,
+        "osebe": osebe,
+        "status": "pending"
+    }).execute()
 
     flash("Recept je bil uspešno oddan v pregled!")
     return redirect("/")
@@ -83,38 +82,44 @@ def getDodajRecept():
 
 @recepti_bp.route("/dodajRecept")
 def dodajRecept():
+    if "username" not in session:
+        flash("Za dodajanje recepta se moraš prijaviti.")
+        return redirect("/login")
     return render_template("dodaj_recept.html")
 
 
 
 @recepti_bp.route("/potrdi/<int:id>", methods=["POST"])
 def potrdi(id):
-    conn = sqlite3.connect("recepti.db")
-    c = conn.cursor()
-    c.execute("UPDATE recepti SET status='approved' WHERE id=?", (id,))
-    conn.commit()
-    conn.close()
+    if "username" not in session or session["username"] != "admin":
+        return "Unauthorized", 403
+
+    supabase.table("recepti") \
+    .update({"status": "approved"}) \
+    .eq("id", id) \
+    .execute()
     return "", 204
 
 
 @recepti_bp.route("/zavrni/<int:id>", methods=["POST"])
 def zavrni(id):
-    conn = sqlite3.connect("recepti.db")
-    c = conn.cursor()
-    c.execute("UPDATE recepti SET status='rejected' WHERE id=?", (id,))
-    conn.commit()
-    conn.close()
+    if "username" not in session or session["username"] != "admin":
+        return "Unauthorized", 403
+    
+    supabase.table("recepti") \
+        .update({"status": "rejected"}) \
+        .eq("id", id) \
+        .execute()
     return "", 204
 
 @recepti_bp.route("/predlagani_recepti")
 def predlagani_recepti():
-    conn = sqlite3.connect('recepti.db')
-    c = conn.cursor()
+    response = supabase.table("recepti") \
+    .select("naslov, sestavine, navodila, slika, tezavnost, cas_priprave, osebe") \
+    .eq("status", "approved") \
+    .execute()
 
-    c.execute(""" SELECT naslov, sestavine, navodila, slika, tezavnost, cas_priprave, osebe FROM recepti WHERE status='approved' """)
-    recepti = c.fetchall()
-
-    conn.close()
+    recepti = response.data
 
     return render_template("predlagani_recepti.html", recepti=recepti)
 
@@ -123,18 +128,13 @@ def predlagani_recepti():
 def search():
     query = request.args.get("q")
 
-    conn = sqlite3.connect("recepti.db")
-    c = conn.cursor()
+    response = supabase.table("recepti") \
+        .select("naslov, sestavine, navodila, slika, tezavnost, cas_priprave, osebe") \
+        .ilike("naslov", f"%{query}%") \
+        .execute()
 
-    c.execute("""
-        SELECT naslov, sestavine, navodila, slika, tezavnost, cas_priprave, osebe
-        FROM recepti
-        WHERE naslov LIKE ?
-    """, ('%' + query + '%',))
+    return jsonify(response.data)
 
-    recepti = c.fetchall()
-    conn.close()
 
-    return jsonify(recepti)
 
   

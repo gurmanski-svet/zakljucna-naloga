@@ -98,12 +98,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         function getIdSearch() {
-            var output = document.getElementById("output");
-
             $.ajax({
-                url: "getIdSearch",
+                url: "/getIdSearch",
                 data: {
-                    id: id.value,
+                    id: document.getElementById("id").value
+
 
                 },
                 success: function(result) {

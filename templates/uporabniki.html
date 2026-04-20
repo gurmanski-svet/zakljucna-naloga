@@ -77,10 +77,10 @@
 
             {% for user in users %}
             <tr>
-                <td>{{ user[1] }}</td>
-                <td>{{ user[2] }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.mail }}</td>
                 <td>
-                    <form action="/izbrisi/{{user[0]}}" method="POST">
+                    <form action="/izbrisi/{{user.id}}" method="POST">
                         <button type="submit" class="delete-btn">Izbriši</button>
                     </form>
                 </td>

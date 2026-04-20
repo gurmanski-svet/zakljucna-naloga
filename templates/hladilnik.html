@@ -105,15 +105,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         function getHladilnik() {
-            var output = document.getElementById("output");
-
             $.ajax({
                 url: "/getHladilnik",
                 data: {
-                    sestavina1: sestavina1.value,
-                    sestavina2: sestavina2.value,
-                    sestavina3: sestavina3.value,
-                    sestavina4: sestavina4.value
+                    sestavina1: document.getElementById("sestavina1").value,
+                    sestavina2: document.getElementById("sestavina2").value,
+                    sestavina3: document.getElementById("sestavina3").value,
+                    sestavina4: document.getElementById("sestavina4").value
+
                 },
                 success: function (result) {
                     if (!result.ime && !result.slika && (!result.ingredients || result.ingredients.length === 0) && !result.navodila) {
@@ -129,7 +128,6 @@
                     output2.innerHTML = result.slika;
                     output3.innerHTML = result.sestavine;
                     output4.innerHTML = result.navodila;
-                    output5.innerHTML = result.message;
                     }
                 }
             });
