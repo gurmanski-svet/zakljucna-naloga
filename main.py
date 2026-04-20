@@ -15,8 +15,10 @@ app.register_blueprint(api_bp)
 app.register_blueprint(recepti_bp)
 
 #supabase povezava
-url: str = "https://vraixcshjsgfobltfvpu.supabase.co"
-key: str = "sb_publishable_i4bIososUGqTVjhVGjZu_Q_x7UkMYYw"
+#url: str = "https://vraixcshjsgfobltfvpu.supabase.co"
+#key: str = "sb_publishable_i4bIososUGqTVjhVGjZu_Q_x7UkMYYw"
+url: str = os.getenv("SUPABASE_URL")
+key: str = os.getenv("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
 @app.errorhandler(404)
