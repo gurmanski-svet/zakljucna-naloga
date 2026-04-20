@@ -5,6 +5,7 @@ import os
 from routes.auth import auth_bp
 from routes.api import api_bp
 from routes.recepti import recepti_bp
+from db import supabase
 
 
 app = Flask(__name__)
