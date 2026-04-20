@@ -1,10 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, flash
 import bcrypt
-from supabase import create_client, Client
-
-url: str = "https://vraixcshjsgfobltfvpu.supabase.co"
-key: str = "sb_publishable_i4bIososUGqTVjhVGjZu_Q_x7UkMYYw"
-supabase: Client = create_client(url, key)
+from db import supabase
 
 auth_bp = Blueprint("auth", __name__)
 

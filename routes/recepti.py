@@ -1,13 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, session, jsonify, flash
 from werkzeug.utils import secure_filename
-from supabase import create_client, Client
+from db import supabase
 
 recepti_bp = Blueprint("recepti", __name__)
-
-
-url: str = "https://vraixcshjsgfobltfvpu.supabase.co"
-key: str = "sb_publishable_i4bIososUGqTVjhVGjZu_Q_x7UkMYYw"
-supabase: Client = create_client(url, key)
 
 @recepti_bp.route("/recepti")
 def recepti():

@@ -1,11 +1,12 @@
+from dotenv import load_dotenv
+load_dotenv()
 from flask import Flask, render_template, request, redirect, session
 import os
 from supabase import create_client, Client
 from routes.auth import auth_bp
 from routes.api import api_bp
 from routes.recepti import recepti_bp
-from dotenv import load_dotenv
-load_dotenv()
+
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "fallback_key")
@@ -18,12 +19,6 @@ app.register_blueprint(recepti_bp)
 #supabase povezava
 #url: str = "https://vraixcshjsgfobltfvpu.supabase.co"
 #key: str = "sb_publishable_i4bIososUGqTVjhVGjZu_Q_x7UkMYYw"
-url: str = os.getenv("SUPABASE_URL")
-key: str = os.getenv("SUPABASE_KEY")
-supabase: Client = create_client(url, key)
-
-print("URL:", url)
-print("KEY:", key)
 
 @app.errorhandler(404)
 def page_not_found(e):
