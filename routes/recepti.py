@@ -55,9 +55,12 @@ def getDodajRecept():
 
     if file and file.filename != "":
         filename = secure_filename(file.filename)
-
-        supabase.storage.from_("slike").upload(filename, file)
-
+    
+        supabase.storage.from_("slike").upload(
+            filename,
+            file.read()
+        )
+    
         image_url = supabase.storage.from_("slike").get_public_url(filename)
 
     supabase.table("recepti").insert({
